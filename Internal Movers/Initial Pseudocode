@@ -1,1 +1,114 @@
+PSEUDOCODE FOR INTERNAL MOVERS TRACKING SCRIPT
 
+1. CONFIGURATION
+   ─────────────────────────────────────────────────────────────────────────────
+   • Define BASE_DIR as the folder path where all CSV files live.
+   • Define STAFF_FILE, HIRES_FILE, LEAVERS_FILE as the exact full paths to:
+     – Staff_List_New.csv
+     – NHS_Hires_Detail.csv
+     – NHS_Leavers_Detail.csv
+    • Import  required libraries:
+   
+
+2. LOAD & CLEAN DATA
+   ─────────────────────────────────────────────────────────────────────────────
+   2.1 Load Staff_List_New.csv
+       • Read STAFF_FILE into a DataFrame df_staff
+       •  lowercase, replace spaces and parentheses with underscores for column names
+         • Rename df_staff['latest_start_date'] ➔ df_staff['month']        
+       • Verify a “month” column exists
+       • Convert df_staff['month'] to datetime 
+       • Drop any rows where month parsing failed
+       • For each of the columns service_group, staff_group, department:
+           • Convert values to Title Case 
+       • Create a new column df_staff['month_num'] = month.dt.month (1–12)
+       • Sort df_staff by [employee_number, month] in ascending order
+
+   2.2 Load NHS_Hires_Detail.csv into df_hires
+       • Read HIRES_FILE into df_hires, parsing “Latest Start Date” as datetime
+       • lowercase, replace spaces and parentheses with underscores for column names
+       • Rename df_hires['latest_start_date'] ➔ df_hires['date']
+
+   2.3 Load NHS_Leavers_Detail.csv into df_leaves
+       • Read LEAVERS_FILE into df_leaves, parsing “Termination Date” as datetime
+       • lowercase, replace spaces and parentheses with underscores for column names
+       • Rename df_leaves['termination_date'] ➔ df_leaves['date']
+
+
+4. IDENTIFY INTERNAL MOVES ACROSS MONTHS
+   ─────────────────────────────────────────────────────────────────────────────
+   4.1 Exclude true externals:
+       • Let external_ids = set of employee_number from df_hires ∪ df_leaves
+       • Create df_staff_int = df_staff rows where employee_number is NOT in external_ids
+
+   4.2 Iterate per employee to detect monthly changes:
+       • Initialise an empty list move_records
+       • For each unique employee_number in df_staff_int:
+           • Extract that employee’s rows and sort by month chronology
+           • Shift the DataFrame down one row 
+           • For idx from 1 to :
+               • If any of these three changed from prev row to curr row:
+                   – service_group
+                   – staff_group
+                   – department
+                 then record:
+                   • employee_number
+                   • from_svc  = prev.service_group
+                   • to_svc    = curr.service_group
+                   • from_staff = prev.staff_group
+                   • to_staff   = curr.staff_group
+                 and add that dictionary to move_records
+       • After looping all employees, convert move_records into df_moves
+       • If df_moves is empty:
+           • Print “No internal moves detected ."
+
+   4.3 Aggregate the move events:
+       • Create svc_moves by grouping df_moves by [from_svc, to_svc], counting occurrences
+       • Create staff_moves by grouping df_moves by [from_staff, to_staff], counting occurrences
+
+5. DASH APP SETUP
+    ─────────────────────────────────────────────────────────────────────────────
+    • Import required libraries:
+      – from dash import Dash, html, dcc
+      – from dash.dependencies import Input, Output
+      – import plotly.express as px
+
+    • Create the app:
+      – app = Dash(__name__)
+
+    • Create a simple layout:
+      – app.layout = html.Div([
+            • html.H1("Internal Movers Dashboard"),
+            • dcc.RadioItems(
+                 id='group-type',
+                 options=[
+                      {'label': 'Service Group', 'value': 'service'},
+                      {'label': 'Staff Group', 'value': 'staff'}
+                 ],
+                 value='service'
+            ),
+            • dcc.Graph(id='bubble-chart'),
+            • html.P("Data source: Staff_List_New.csv (Externals excluded)")
+      ])
+
+    • Create a simple callback:
+      @app.callback(
+            Output('bubble-chart', 'figure'),
+            Input('group-type', 'value')
+      )
+      def update_chart(group_type):
+            • Choose data based on selection (service or staff moves)
+            • Create simple bubble chart using plotly.express.scatter:
+                 – Show number of moves as bubble size
+                 – Color bubbles by department
+                 – Add hover information
+            • Return the figure
+
+6. RUN THE DASH SERVER
+   ─────────────────────────────────────────────────────────────────────────────
+   • Import os to check environment variables
+   • If __name__ == '__main__':
+       • Set debug_mode = os.getenv('ENV', 'development') == 'development'
+       • Run app.run_server(debug=debug_mode)
+   ─────────────────────────────────────────────────────────────────────────────
+   • If __name__ == '__main__', run app.run_server(debug=True)
