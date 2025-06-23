@@ -35,6 +35,8 @@ monthly = (
     .reset_index(name='y')
 )
 
+
+
 Cols going into agg(): ['Total', 'Org', 'Service', 'Staff', 'unique_id', 'ds', 'y']
 ---------------------------------------------------------------------------
 DuplicateError                            Traceback (most recent call last)
@@ -144,3 +146,94 @@ Y_df, S_df, tags = aggregate(
     target_cols=('y',)
 )
 
+
+
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:620: SyntaxWarning: invalid escape sequence '\m'
+  """Summation Constraints plot
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:640: SyntaxWarning: invalid escape sequence '\m'
+  """Single Series plot
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:719: SyntaxWarning: invalid escape sequence '\m'
+  """Hierarchically Linked Series plot
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:815: SyntaxWarning: invalid escape sequence '\m'
+  """Hierarchically Predictions Gap plot
+---------------------------------------------------------------------------
+DuplicateError                            Traceback (most recent call last)
+Cell In[8], line 2
+      1 # Aggregate using hierarchialforecast
+----> 2 Y_df, S_df, tags = aggregate(
+      3     df=monthly, 
+      4     spec=[
+      5         ['Total'],
+      6         ['Total', 'Org'],
+      7         ['Total', 'Org', 'Service'],
+      8         ['Total', 'Org', 'Service', 'Staff']
+      9     ],
+     10     id_col='unique_id',
+     11     time_col='ds',
+     12     target_cols=('y',)
+     13 )
+
+File ~\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:283, in aggregate(df, spec, exog_vars, sparse_s, id_col, time_col, id_time_col, target_cols)
+    276 # Create Y_df
+    277 Y_level = df_nw.with_columns(
+    278     *[
+    279         getattr(nw.col(col), agg)().over(level + [group_col]).alias(col_name)
+    280         for col_name, (col, agg) in agg_dict.items()
+    281     ]
+    282 )
+--> 283 Y_level = Y_level.select(
+    284     nw.concat_str([nw.col(col) for col in level], separator=level_sep).alias(
+    285         _id_col
+    286     ),
+    287     nw.all(),
+    288 )
+    289 # For temporal aggregation, we need to keep the time column
+    290 if temporal_agg:
+
+File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\dataframe.py:1321, in DataFrame.select(self, *exprs, **named_exprs)
+   1289 def select(
+   1290     self, *exprs: IntoExpr | Iterable[IntoExpr], **named_exprs: IntoExpr
+   1291 ) -> Self:
+   1292     r"""Select columns from this DataFrame.
+   1293 
+   1294     Arguments:
+   (...)
+   1319         └──────────────────┘
+   1320     """
+-> 1321     return super().select(*exprs, **named_exprs)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\dataframe.py:186, in BaseFrame.select(self, *exprs, **named_exprs)
+    181     return self._with_compliant(self._compliant_frame.aggregate(*compliant_exprs))
+    182 compliant_exprs = [
+    183     compliant_expr.broadcast(kind) if is_scalar_like(kind) else compliant_expr
+    184     for compliant_expr, kind in zip(compliant_exprs, kinds)
+    185 ]
+--> 186 return self._with_compliant(self._compliant_frame.select(*compliant_exprs))
+
+File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\_pandas_like\dataframe.py:414, in PandasLikeDataFrame.select(self, *exprs)
+    412 # `concat` creates a new object, so fine to modify `.columns.name` inplace.
+    413 df.columns.name = self.native.columns.name
+--> 414 return self._with_native(df, validate_column_names=True)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\_pandas_like\dataframe.py:257, in PandasLikeDataFrame._with_native(self, df, validate_column_names)
+    256 def _with_native(self, df: Any, *, validate_column_names: bool = True) -> Self:
+--> 257     return self.__class__(
+    258         df,
+    259         implementation=self._implementation,
+    260         backend_version=self._backend_version,
+    261         version=self._version,
+    262         validate_column_names=validate_column_names,
+    263     )
+
+File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\_pandas_like\dataframe.py:124, in PandasLikeDataFrame.__init__(self, native_dataframe, implementation, backend_version, version, validate_column_names)
+    122 validate_backend_version(self._implementation, self._backend_version)
+    123 if validate_column_names:
+--> 124     check_column_names_are_unique(native_dataframe.columns)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\_pandas_like\utils.py:659, in check_column_names_are_unique(columns)
+    657         msg += f"\n- '{key}' {value} times"
+    658 msg = f"Expected unique column names, got:{msg}"
+--> 659 raise DuplicateError(msg)
+
+DuplicateError: Expected unique column names, got:
+- 'unique_id' 2 times
