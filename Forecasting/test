@@ -37,6 +37,8 @@ monthly = (
 
 
 
+
+
 Cols going into agg(): ['Total', 'Org', 'Service', 'Staff', 'unique_id', 'ds', 'y']
 ---------------------------------------------------------------------------
 DuplicateError                            Traceback (most recent call last)
@@ -792,3 +794,106 @@ print(hierarchicalforecast.__version__)
 print(narwhals.__version__)
 1.2.1
 1.44.0
+
+
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:330: SyntaxWarning: invalid escape sequence '\m'
+  """Summation Constraints plot
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:350: SyntaxWarning: invalid escape sequence '\m'
+  """Single Series plot
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:429: SyntaxWarning: invalid escape sequence '\m'
+  """Hierarchically Linked Series plot
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:525: SyntaxWarning: invalid escape sequence '\m'
+  """Hierarchically Predictions Gap plot
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[12], line 2
+      1 # Aggregate using hierarchialforecast
+----> 2 Y_df, S_df, tags = aggregate(
+      3     df=monthly, 
+      4     spec=[
+      5         ['Total'],
+      6         ['Total', 'Org'],
+      7         ['Total', 'Org', 'Service'],
+      8         ['Total', 'Org', 'Service', 'Staff']
+      9     ],
+     10     id_col='unique_id',
+     11     time_col='ds',
+     12     target_cols=('y',)
+     13 )
+
+File ~\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:281, in aggregate(df, spec, exog_vars, sparse_s, id_col, time_col, target_cols)
+    276 categories = list(tags.values())
+    278 encoder = OneHotEncoder(
+    279     categories=categories, sparse_output=sparse_s, dtype=np.float64
+    280 )
+--> 281 S_dum = encoder.fit_transform(S)
+    283 if not sparse_s:
+    284     S_nw = nw.from_dict(
+    285         {
+    286             **{id_col: category_list},
+   (...)
+    289         native_namespace=native_namespace,
+    290     )
+
+File C:\ProgramData\anaconda3\Lib\site-packages\sklearn\utils\_set_output.py:313, in _wrap_method_output.<locals>.wrapped(self, X, *args, **kwargs)
+    311 @wraps(f)
+    312 def wrapped(self, X, *args, **kwargs):
+--> 313     data_to_wrap = f(self, X, *args, **kwargs)
+    314     if isinstance(data_to_wrap, tuple):
+    315         # only wrap the first output for cross decomposition
+    316         return_tuple = (
+    317             _wrap_data_with_container(method, data_to_wrap[0], X, self),
+    318             *data_to_wrap[1:],
+    319         )
+
+File C:\ProgramData\anaconda3\Lib\site-packages\sklearn\base.py:1098, in TransformerMixin.fit_transform(self, X, y, **fit_params)
+   1083         warnings.warn(
+   1084             (
+   1085                 f"This object ({self.__class__.__name__}) has a `transform`"
+   (...)
+   1093             UserWarning,
+   1094         )
+   1096 if y is None:
+   1097     # fit method of arity 1 (unsupervised transformation)
+-> 1098     return self.fit(X, **fit_params).transform(X)
+   1099 else:
+   1100     # fit method of arity 2 (supervised transformation)
+   1101     return self.fit(X, y, **fit_params).transform(X)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\sklearn\base.py:1473, in _fit_context.<locals>.decorator.<locals>.wrapper(estimator, *args, **kwargs)
+   1466     estimator._validate_params()
+   1468 with config_context(
+   1469     skip_parameter_validation=(
+   1470         prefer_skip_nested_validation or global_skip_validation
+   1471     )
+   1472 ):
+-> 1473     return fit_method(estimator, *args, **kwargs)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\sklearn\preprocessing\_encoders.py:976, in OneHotEncoder.fit(self, X, y)
+    957 @_fit_context(prefer_skip_nested_validation=True)
+    958 def fit(self, X, y=None):
+    959     """
+    960     Fit OneHotEncoder to X.
+    961 
+   (...)
+    974         Fitted encoder.
+    975     """
+--> 976     self._fit(
+    977         X,
+    978         handle_unknown=self.handle_unknown,
+    979         force_all_finite="allow-nan",
+    980     )
+    981     self._set_drop_idx()
+    982     self._n_features_outs = self._compute_n_features_outs()
+
+File C:\ProgramData\anaconda3\Lib\site-packages\sklearn\preprocessing\_encoders.py:160, in _BaseEncoder._fit(self, X, handle_unknown, force_all_finite, return_counts, return_and_ignore_missing_for_infrequent)
+    155     if diff:
+    156         msg = (
+    157             "Found unknown categories {0} in column {1}"
+    158             " during fit".format(diff, i)
+    159         )
+--> 160         raise ValueError(msg)
+    161 if compute_counts:
+    162     category_counts.append(_get_counts(Xi, cats))
+
+ValueError: Found unknown categories ['Total/EPAC', 'Total/Homeless', 'Total/PICC', 'Total/NeurodevelopmentalP', 'Total/MFT', 'Total/Comms&Pat', 'Total/Pathway2', 'Total/Obs', 'Total/Oncology', 'Total/Ward7B-T&O'] in column 1 during fit
