@@ -611,3 +611,20 @@ File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\_pandas_like\util
 DuplicateError: Expected unique column names, got:
 - 'unique_id' 2 times
 
+print("Columns:", monthly.columns.tolist())
+print("Value counts:", monthly.columns.value_counts())
+print("Any duplicates?", monthly.columns.duplicated().any())
+
+# Check for actual duplicate column data
+for col in monthly.columns:
+    print(f"{col}: {monthly.columns.tolist().count(col)}")
+
+print("Columns:", monthly.columns.tolist())
+print("Value counts:", monthly.columns.value_counts())
+print("Any duplicates?", monthly.columns.duplicated().any())
+
+# Check for actual duplicate column data
+for col in monthly.columns:
+    print(f"{col}: {monthly.columns.tolist().count(col)}")
+
+
