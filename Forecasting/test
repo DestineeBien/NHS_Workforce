@@ -627,4 +627,34 @@ print("Any duplicates?", monthly.columns.duplicated().any())
 for col in monthly.columns:
     print(f"{col}: {monthly.columns.tolist().count(col)}")
 
+import pandas as pd
+from hierarchicalforecast.utils import aggregate
+
+test = pd.DataFrame({
+    'unique_id': ['A_A_A', 'A_A_B', 'A_B_A', 'A_B_B'],
+    'ds': pd.date_range('2020-01-01', periods=4, freq='M'),
+    'y': [1,2,3,4],
+    'Total': ['Total']*4,
+    'Org': ['A']*4,
+    'Service': ['A','A','B','B'],
+    'Staff': ['A','B','A','B']
+})
+
+print(test.columns.tolist())
+print(test.columns.value_counts())
+print(test.columns.duplicated().any())
+
+Y_df, S_df, tags = aggregate(
+    df=test,
+    spec=[
+        ['Total'],
+        ['Total', 'Org'],
+        ['Total', 'Org', 'Service'],
+        ['Total', 'Org', 'Service', 'Staff']
+    ],
+    id_col='unique_id',
+    time_col='ds',
+    target_cols=('y',)
+)
+print("Aggregate worked!")
 
