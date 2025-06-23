@@ -762,3 +762,33 @@ File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\_pandas_like\util
 DuplicateError: Expected unique column names, got:
 - 'unique_id' 2 times
 
+unique_id: 1
+ds: 1
+y: 1
+Total: 1
+Org: 1
+Service: 1
+Staff: 1
+Columns: ['unique_id', 'ds', 'y', 'Total', 'Org', 'Service', 'Staff']
+Value counts: unique_id    1
+ds           1
+y            1
+Total        1
+Org          1
+Service      1
+Staff        1
+Name: count, dtype: int64
+Any duplicates? False
+unique_id: 1
+ds: 1
+y: 1
+Total: 1
+Org: 1
+Service: 1
+Staff: 1
+import hierarchicalforecast
+import narwhals
+print(hierarchicalforecast.__version__)
+print(narwhals.__version__)
+1.2.1
+1.44.0
