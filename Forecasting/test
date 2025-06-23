@@ -1220,3 +1220,16 @@ print(monthly['Staff'].unique())
  'MedicalandDental' 'AdditionalClinicalServices'
  'NursingandMidwiferyRegistered' 'EstatesandAncillary'
  'AlliedHealthProfessionals' 'HealthcareScientists' 'Students']
+
+# ARIMA and forecast 
+sf = StatsForecast(models=[AutoARIMA(season_length=12)], freq='MS', n_jobs=-1)
+sf.fit(Y_df)
+Y_hat = sf.predict(df=Y_df, h=12, level=[80, 95])
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+Cell In[24], line 4
+      2 sf = StatsForecast(models=[AutoARIMA(season_length=12)], freq='MS', n_jobs=-1)
+      3 sf.fit(Y_df)
+----> 4 Y_hat = sf.predict(df=Y_df, h=12, level=[80, 95])
+
+TypeError: _StatsForecast.predict() got an unexpected keyword argument 'df'
