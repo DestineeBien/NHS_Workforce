@@ -237,3 +237,49 @@ File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\_pandas_like\util
 
 DuplicateError: Expected unique column names, got:
 - 'unique_id' 2 times
+
+
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+Cell In[16], line 2
+      1 # Aggregate using hierarchialforecast
+----> 2 Y_df, S_df, tags = aggregate(
+      3     df=monthly, 
+      4     spec=[
+      5         ['Total'],
+      6         ['Total', 'Org'],
+      7         ['Total', 'Org', 'Service'],
+      8         ['Total', 'Org', 'Service', 'Staff']
+      9     ],
+     10     id_col='unique_id',
+     11     time_col='ds',
+     12     target_cols=('y',)
+     13 )
+
+File ~\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\utils.py:190, in aggregate(df, spec, exog_vars, sparse_s, id_col, time_col, id_time_col, target_cols)
+    188 # To Narwhals
+    189 target_cols = list(target_cols)
+--> 190 df_nw = nw.from_native(df)
+    191 backend = df_nw.implementation
+    193 # Check if we do temporal aggregation
+
+File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\translate.py:336, in from_native(native_object, strict, pass_through, eager_only, series_only, allow_series, **kwds)
+    333     msg = f"from_native() got an unexpected keyword argument {next(iter(kwds))!r}"
+    334     raise TypeError(msg)
+--> 336 return _from_native_impl(  # type: ignore[no-any-return]
+    337     native_object,
+    338     pass_through=pass_through,
+    339     eager_only=eager_only,
+    340     eager_or_interchange_only=False,
+    341     series_only=series_only,
+    342     allow_series=allow_series,
+    343     version=Version.MAIN,
+    344 )
+
+File ~\AppData\Roaming\Python\Python312\site-packages\narwhals\translate.py:570, in _from_native_impl(native_object, pass_through, eager_only, eager_or_interchange_only, series_only, allow_series, version)
+    568 elif not pass_through:
+    569     msg = f"Expected pandas-like dataframe, Polars dataframe, or Polars lazyframe, got: {type(native_object)}"
+--> 570     raise TypeError(msg)
+    571 return native_object
+
+TypeError: Expected pandas-like dataframe, Polars dataframe, or Polars lazyframe, got: <class 'method'>
