@@ -1,0 +1,75 @@
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+Cell In[34], line 9
+      1 external_stylesheets = [dbc.themes.BOOTSTRAP]
+      2 app = Dash(__name__, external_stylesheets=external_stylesheets)
+      4 app.layout = dbc.Container([
+      5     html.H1("NHS Hierarchical Forecast Dashboard", className="Text-primary text-center mt-3"),
+      6 
+      7     dbc.Row([
+      8         dbc.Col([
+----> 9             dcc.Dropdown(
+     10                 id='org-dropdown',
+     11                 options=[{'label': org, 'value': org} for org in sorted(Y_rec['Org'].unique())],
+     12                 placeholders='Select Organisation',
+     13                 value=None
+     14             )
+     15         ], md=4),
+     16 
+     17         dbc.Col([
+     18             dcc.Dropdown(
+     19                 id='service-dropdown',
+     20                 placeholder='Select Service'
+     21             )
+     22         ], md=4),
+     23 
+     24         dbc.Col([
+     25             dcc.Dropdown(
+     26                 id='staff-dropdown',
+     27                 placeholder='Select Staff Group'
+     28             )
+     29         ], md=4),
+     30     ], className='mb-3'),
+     31 
+     32     dcc.Graph(id='forest-graph'),
+     33 
+     34     html.Hr(),
+     35     html.H4("Forecast Data"),
+     36     dash_table.DataTable(
+     37         id='forecast-table',
+     38         columns=[{"name": i, "id": i} for i in ['ds', 'AutoARIMA', 'AutoARIMA-lo-95', 'AutoARIMA-hi-95']],
+     39         page_size=10,
+     40         style_table={'overflowX': 'auto'},
+     41         style_cell={'textAlign': 'left'}
+     42     )
+     43 ], fluid=True)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\dash\development\base_component.py:475, in _explicitize_args.<locals>.wrapper(*args, **kwargs)
+    473 if "self" in kwargs["_explicit_args"]:
+    474     kwargs["_explicit_args"].remove("self")
+--> 475 return func(*args, **kwargs)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\dash\dcc\Dropdown.py:217, in Dropdown.__init__(self, options, value, multi, clearable, searchable, search_value, placeholder, disabled, optionHeight, maxHeight, style, className, id, persistence, persisted_props, persistence_type, **kwargs)
+    214 _locals.update(kwargs)  # For wildcard attrs and excess named props
+    215 args = {k: _locals[k] for k in _explicit_args}
+--> 217 super(Dropdown, self).__init__(**args)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\dash\development\base_component.py:174, in Component.__init__(self, **kwargs)
+    170 if not k_in_propnames and not k_in_wildcards:
+    171     allowed_args = ", ".join(
+    172         sorted(self._prop_names)
+    173     )  # pylint: disable=no-member
+--> 174     raise TypeError(
+    175         f"{error_string_prefix} received an unexpected keyword argument: `{k}`"
+    176         f"\nAllowed arguments: {allowed_args}"
+    177     )
+    179 if k not in self._base_nodes and isinstance(v, Component):
+    180     raise TypeError(
+    181         error_string_prefix
+    182         + " detected a Component for a prop other than `children`\n"
+   (...)
+    185         + 'For example, it must be html.Div(["a", "b", "c"]) not html.Div("a", "b", "c")\n'
+    186     )
+
+TypeError: The `dcc.Dropdown` component (version 3.0.4) with the ID "org-dropdown" received an unexpected keyword argument: `placeholders`
+Allowed arguments: className, clearable, disabled, id, maxHeight, multi, optionHeight, options, persisted_props, persistence, persistence_type, placeholder, search_value, searchable, style, value
