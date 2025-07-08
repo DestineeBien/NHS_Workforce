@@ -1,0 +1,6 @@
+NHS_Leavers_Detail_New : Service group	Service	Department	Organisation	Employee Number	Assignment Number	Employee Name	Termination Date	FTE	Position Title	Staff Group	Grade 3	Leaving Reason	Gender	Ethnicity Group	Disability	Nationality	Age Band SFT	Recruitment Source	Length of Service (Years)	Length of Service (Months)	Destination On Leaving	NHS Organisation	Occupation Code	Role	Area Of Work	Assignment Category	Age	Pay Grade	Contract Hours	Email Address	Address Line 1	Address Line 2	Address Line 3	Town or City	County	Postal Code	Ethnic Origin	Religious Belief	Sexual Orientation	Assignment Status	Subjective Code	Full Time Salary	Actual Salary	Spinal Value	Employee Birth Date	Residency Status	Professional Registration	NI Number
+
+Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number	Assignment Number	Employee Name	Latest Start Date	FTE	Position Title	Staff Group	Recruitment Source	Occupation Code	Role	Area Of Work	Grade 3	Pay Grade	Disability	Ethnicity Group	Gender	Nationality	Employee Email Address	Professional Registration Num	NI Number	Actual Salary	Age	DOB
+
+Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
+
