@@ -4,23 +4,94 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
---------------------------------------------------------------------------
-OSError                                   Traceback (most recent call last)
-Cell In[39], line 3
-      1 # Set output directory + helper for safe filenames
-      2 base_dir = r":\Users\Destinee.HassanBien\Documents\Desys Work"
-----> 3 os.makedirs(base_dir, exist_ok=True)
-      5 def safe_filename(label):
-      6     return re.sub(r'[\\/"*?<>| ]+', '_', label)
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[22], line 27
+     25 palette = sns.color_palette("husl", n_colors=group['year'].nunique())
+     26 fig, ax = plt.subplots(figsize=(10, 6))
+---> 27 sns.lineplot(
+     28     data=group,
+     29     x='month_num', y ='count', hue='year', palette=palette, ax=ax, legend=True
+     30 )
+     31 ax.set_title(f'Seasonal Plot: {label}')
+     32 ax.set_xlabel('Month')
 
-File <frozen os>:215, in makedirs(name, mode, exist_ok)
+File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\relational.py:485, in lineplot(data, x, y, hue, size, style, units, weights, palette, hue_order, hue_norm, sizes, size_order, size_norm, dashes, markers, style_order, estimator, errorbar, n_boot, seed, orient, sort, err_style, err_kws, legend, ci, ax, **kwargs)
+    471 def lineplot(
+    472     data=None, *,
+    473     x=None, y=None, hue=None, size=None, style=None, units=None, weights=None,
+   (...)
+    481 
+    482     # Handle deprecation of ci parameter
+    483     errorbar = _deprecate_ci(errorbar, ci)
+--> 485     p = _LinePlotter(
+    486         data=data,
+    487         variables=dict(
+    488             x=x, y=y, hue=hue, size=size, style=style, units=units, weight=weights
+    489         ),
+    490         estimator=estimator, n_boot=n_boot, seed=seed, errorbar=errorbar,
+    491         sort=sort, orient=orient, err_style=err_style, err_kws=err_kws,
+    492         legend=legend,
+    493     )
+    495     p.map_hue(palette=palette, order=hue_order, norm=hue_norm)
+    496     p.map_size(sizes=sizes, order=size_order, norm=size_norm)
 
-File <frozen os>:215, in makedirs(name, mode, exist_ok)
+File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\relational.py:216, in _LinePlotter.__init__(self, data, variables, estimator, n_boot, seed, errorbar, sort, orient, err_style, err_kws, legend)
+    202 def __init__(
+    203     self, *,
+    204     data=None, variables={},
+   (...)
+    210     # the kind of plot to draw, but for the time being we need to set
+    211     # this information so the SizeMapping can use it
+    212     self._default_size_range = (
+    213         np.r_[.5, 2] * mpl.rcParams["lines.linewidth"]
+    214     )
+--> 216     super().__init__(data=data, variables=variables)
+    218     self.estimator = estimator
+    219     self.errorbar = errorbar
 
-    [... skipping similar frames: makedirs at line 215 (1 times)]
+File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_base.py:634, in VectorPlotter.__init__(self, data, variables)
+    629 # var_ordered is relevant only for categorical axis variables, and may
+    630 # be better handled by an internal axis information object that tracks
+    631 # such information and is set up by the scale_* methods. The analogous
+    632 # information for numeric axes would be information about log scales.
+    633 self._var_ordered = {"x": False, "y": False}  # alt., used DefaultDict
+--> 634 self.assign_variables(data, variables)
+    636 # TODO Lots of tests assume that these are called to initialize the
+    637 # mappings to default values on class initialization. I'd prefer to
+    638 # move away from that and only have a mapping when explicitly called.
+    639 for var in ["hue", "size", "style"]:
 
-File <frozen os>:215, in makedirs(name, mode, exist_ok)
+File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_base.py:679, in VectorPlotter.assign_variables(self, data, variables)
+    674 else:
+    675     # When dealing with long-form input, use the newer PlotData
+    676     # object (internal but introduced for the objects interface)
+    677     # to centralize / standardize data consumption logic.
+    678     self.input_format = "long"
+--> 679     plot_data = PlotData(data, variables)
+    680     frame = plot_data.frame
+    681     names = plot_data.names
 
-File <frozen os>:225, in makedirs(name, mode, exist_ok)
+File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_core\data.py:58, in PlotData.__init__(self, data, variables)
+     51 def __init__(
+     52     self,
+     53     data: DataSource,
+     54     variables: dict[str, VariableSpec],
+     55 ):
+     57     data = handle_data_source(data)
+---> 58     frame, names, ids = self._assign_variables(data, variables)
+     60     self.frame = frame
+     61     self.names = names
 
-OSError: [WinError 123] The filename, directory name, or volume label syntax is incorrect: ':'
+File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_core\data.py:232, in PlotData._assign_variables(self, data, variables)
+    230     else:
+    231         err += "An entry with this name does not appear in `data`."
+--> 232     raise ValueError(err)
+    234 else:
+    235 
+    236     # Otherwise, assume the value somehow represents data
+    237 
+    238     # Ignore empty data structures
+    239     if isinstance(val, Sized) and len(val) == 0:
+
+ValueError: Could not interpret value `count` for `y`. An entry with this name does not appear in `data`.
