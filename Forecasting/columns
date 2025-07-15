@@ -5,98 +5,22 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
 ---------------------------------------------------------------------------
-MemoryError                               Traceback (most recent call last)
-Cell In[20], line 74
-     70 # Scatterplot (vs Hires - if available, for leavers only)
-     71 if metric == 'Leavers':
-     72 #Find matching hires gorup
-     73     hires_group = all_agg[
----> 74         (all_agg['metric'] == 'Hires') &
-     75         (all_agg[group_cols] == pd.Series(keys, index=group_cols).to_dict())
-     76     ]
-     77 merged = pd.merge(group, hires_group, on='month', suffixes= ('_leavers', '_hires'))
-     78 if not merged.empty:
+AttributeError                            Traceback (most recent call last)
+~\AppData\Local\Temp\ipykernel_33264\3757464649.py in ?()
+     72         #Find matching hires gorup
+     73             mask = (all_agg['metric'] == 'Hires')
+     74             for col, val in zip(group_cols, keys):
+     75                 mask &= (all_agg[col] == val)
+---> 76             hires_group = all_agg.log[mask]
+     77             merged = pd.merge(group, hires_group, on='month', suffixes= ('_leavers', '_hires'))
+     78 
+     79         if not merged.empty:
 
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\ops\common.py:76, in _unpack_zerodim_and_defer.<locals>.new_method(self, other)
-     72             return NotImplemented
-     74 other = item_from_zerodim(other)
----> 76 return method(self, other)
+C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py in ?(self, name)
+   6295             and name not in self._accessors
+   6296             and self._info_axis._can_hold_identifiers_and_holds_name(name)
+   6297         ):
+   6298             return self[name]
+-> 6299         return object.__getattribute__(self, name)
 
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\arraylike.py:74, in OpsMixin.__rand__(self, other)
-     72 @unpack_zerodim_and_defer("__rand__")
-     73 def __rand__(self, other):
----> 74     return self._logical_method(other, roperator.rand_)
-
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:7913, in DataFrame._arith_method(self, other, op)
-   7910 self, other = self._align_for_op(other, axis, flex=True, level=None)
-   7912 with np.errstate(all="ignore"):
--> 7913     new_data = self._dispatch_frame_op(other, op, axis=axis)
-   7914 return self._construct_result(new_data)
-
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:7956, in DataFrame._dispatch_frame_op(self, right, func, axis)
-   7950     assert self.columns.equals(right.columns)
-   7951     # TODO: The previous assertion `assert right._indexed_same(self)`
-   7952     #  fails in cases with empty columns reached via
-   7953     #  _frame_arith_method_with_reindex
-   7954 
-   7955     # TODO operate_blockwise expects a manager of the same type
--> 7956     bm = self._mgr.operate_blockwise(
-   7957         # error: Argument 1 to "operate_blockwise" of "ArrayManager" has
-   7958         # incompatible type "Union[ArrayManager, BlockManager]"; expected
-   7959         # "ArrayManager"
-   7960         # error: Argument 1 to "operate_blockwise" of "BlockManager" has
-   7961         # incompatible type "Union[ArrayManager, BlockManager]"; expected
-   7962         # "BlockManager"
-   7963         right._mgr,  # type: ignore[arg-type]
-   7964         array_op,
-   7965     )
-   7966     return self._constructor_from_mgr(bm, axes=bm.axes)
-   7968 elif isinstance(right, Series) and axis == 1:
-   7969     # axis=1 means we want to operate row-by-row
-
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\managers.py:1511, in BlockManager.operate_blockwise(self, other, array_op)
-   1507 def operate_blockwise(self, other: BlockManager, array_op) -> BlockManager:
-   1508     """
-   1509     Apply array_op blockwise with another (aligned) BlockManager.
-   1510     """
--> 1511     return operate_blockwise(self, other, array_op)
-
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\ops.py:65, in operate_blockwise(left, right, array_op)
-     63 res_blks: list[Block] = []
-     64 for lvals, rvals, locs, left_ea, right_ea, rblk in _iter_block_pairs(left, right):
----> 65     res_values = array_op(lvals, rvals)
-     66     if (
-     67         left_ea
-     68         and not right_ea
-     69         and hasattr(res_values, "reshape")
-     70         and not is_1d_only_ea_dtype(res_values.dtype)
-     71     ):
-     72         res_values = res_values.reshape(1, -1)
-
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\ops\array_ops.py:454, in logical_op(left, right, op)
-    450 else:
-    451     # i.e. scalar
-    452     is_other_int_dtype = lib.is_integer(rvalues)
---> 454 res_values = na_logical_op(lvalues, rvalues, op)
-    456 # For int vs int `^`, `|`, `&` are bitwise operators and return
-    457 #   integer dtypes.  Otherwise these are boolean ops
-    458 if not (left.dtype.kind in "iu" and is_other_int_dtype):
-
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\ops\array_ops.py:362, in na_logical_op(x, y, op)
-    352 def na_logical_op(x: np.ndarray, y, op):
-    353     try:
-    354         # For exposition, write:
-    355         #  yarr = isinstance(y, np.ndarray)
-   (...)
-    360         # Then Cases where this goes through without raising include:
-    361         #  (xint or xbool) and (yint or bool)
---> 362         result = op(x, y)
-    363     except TypeError:
-    364         if isinstance(y, np.ndarray):
-    365             # bool-bool dtype operations should be OK, should not get here
-
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\roperator.py:54, in rand_(left, right)
-     53 def rand_(left, right):
----> 54     return operator.and_(right, left)
-
-MemoryError: Unable to allocate 16.9 GiB for an array with shape (47599, 47599) and data type object
+AttributeError: 'DataFrame' object has no attribute 'log'
