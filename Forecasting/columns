@@ -4,143 +4,78 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
+C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\tsa\stattools.py:693: RuntimeWarning: invalid value encountered in divide
+  acf = avf[: nlags + 1] / avf[0]
 ---------------------------------------------------------------------------
-MemoryError                               Traceback (most recent call last)
-Cell In[24], line 66
-     64     axes[i].set_yticklabels([])
-     65 fig.suptitle(f'Seasonal Subseries Plot: {label}')
----> 66 fig.tight_layout()
-     67 plt.savefig(os.path.join(base_dir, f"{safe_label}_subseries.png"))
-     68 plt.close()
+ValueError                                Traceback (most recent call last)
+Cell In[25], line 102
+    100 # Autocorrelation Function (ACF)
+    101 fig, ax = plt.subplots(figsize=(8, 4))
+--> 102 plot_acf(group_sorted['Count'].dropna(), lags=24, ax=ax)
+    103 ax.set_title(f'ACF: {label}')
+    104 plt.tight_layout()
 
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\figure.py:3545, in Figure.tight_layout(self, pad, h_pad, w_pad, rect)
-   3543 previous_engine = self.get_layout_engine()
-   3544 self.set_layout_engine(engine)
--> 3545 engine.execute(self)
-   3546 if previous_engine is not None and not isinstance(
-   3547     previous_engine, (TightLayoutEngine, PlaceHolderLayoutEngine)
-   3548 ):
-   3549     _api.warn_external('The figure layout has changed to tight')
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\util\_decorators.py:213, in deprecate_kwarg.<locals>._deprecate_kwarg.<locals>.wrapper(*args, **kwargs)
+    211         raise TypeError(msg)
+    212     kwargs[new_arg_name] = new_arg_value
+--> 213 return func(*args, **kwargs)
 
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\layout_engine.py:181, in TightLayoutEngine.execute(self, fig)
-    164 """
-    165 Execute tight_layout.
-    166 
-   (...)
-    178 .pyplot.tight_layout
-    179 """
-    180 info = self._params
---> 181 renderer = fig._get_renderer()
-    182 with getattr(renderer, "_draw_disabled", nullcontext)():
-    183     kwargs = get_tight_layout_figure(
-    184         fig, fig.axes, get_subplotspec_list(fig.axes), renderer,
-    185         pad=info['pad'], h_pad=info['h_pad'], w_pad=info['w_pad'],
-    186         rect=info['rect'])
+File C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\graphics\tsaplots.py:229, in plot_acf(x, ax, lags, alpha, use_vlines, adjusted, fft, missing, title, zero, auto_ylims, bartlett_confint, vlines_kwargs, **kwargs)
+    226 if alpha is not None:
+    227     acf_x, confint = acf_x[:2]
+--> 229 _plot_corr(
+    230     ax,
+    231     title,
+    232     acf_x,
+    233     confint,
+    234     lags,
+    235     irregular,
+    236     use_vlines,
+    237     vlines_kwargs,
+    238     auto_ylims=auto_ylims,
+    239     **kwargs,
+    240 )
+    242 return fig
 
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\figure.py:2762, in Figure._get_renderer(self)
-   2760 def _get_renderer(self):
-   2761     if hasattr(self.canvas, 'get_renderer'):
--> 2762         return self.canvas.get_renderer()
-   2763     else:
-   2764         return _get_renderer(self)
+File C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\graphics\tsaplots.py:51, in _plot_corr(ax, title, acf_x, confint, lags, irregular, use_vlines, vlines_kwargs, auto_ylims, skip_lag0_confint, **kwargs)
+     48         confint = confint[lags]
+     50 if use_vlines:
+---> 51     ax.vlines(lags, [0], acf_x, **vlines_kwargs)
+     52     ax.axhline(**kwargs)
+     54 kwargs.setdefault("marker", "o")
 
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:397, in FigureCanvasAgg.get_renderer(self)
-    395 reuse_renderer = (self._lastKey == key)
-    396 if not reuse_renderer:
---> 397     self.renderer = RendererAgg(w, h, self.figure.dpi)
-    398     self._lastKey = key
-    399 return self.renderer
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\__init__.py:1473, in _preprocess_data.<locals>.inner(ax, data, *args, **kwargs)
+   1470 @functools.wraps(func)
+   1471 def inner(ax, *args, data=None, **kwargs):
+   1472     if data is None:
+-> 1473         return func(
+   1474             ax,
+   1475             *map(sanitize_sequence, args),
+   1476             **{k: sanitize_sequence(v) for k, v in kwargs.items()})
+   1478     bound = new_sig.bind(ax, *args, **kwargs)
+   1479     auto_label = (bound.arguments.get(label_namer)
+   1480                   or bound.kwargs.get(label_namer))
 
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:70, in RendererAgg.__init__(self, width, height, dpi)
-     68 self.width = width
-     69 self.height = height
----> 70 self._renderer = _RendererAgg(int(width), int(height), dpi)
-     71 self._filter_renderers = []
-     73 self._update_methods()
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\axes\_axes.py:1253, in Axes.vlines(self, x, ymin, ymax, colors, linestyles, label, **kwargs)
+   1251 masked_verts[:, 0, 1] = ymin
+   1252 masked_verts[:, 1, 0] = x
+-> 1253 masked_verts[:, 1, 1] = ymax
+   1255 lines = mcoll.LineCollection(masked_verts, colors=colors,
+   1256                              linestyles=linestyles, label=label)
+   1257 self.add_collection(lines, autolim=False)
 
-MemoryError: In RendererAgg: Out of memory
----------------------------------------------------------------------------
-MemoryError                               Traceback (most recent call last)
-File C:\ProgramData\anaconda3\Lib\site-packages\IPython\core\formatters.py:343, in BaseFormatter.__call__(self, obj)
-    341     pass
-    342 else:
---> 343     return printer(obj)
-    344 # Finally look for special method names
-    345 method = get_real_method(obj, self.print_method)
+File C:\ProgramData\anaconda3\Lib\contextlib.py:81, in ContextDecorator.__call__.<locals>.inner(*args, **kwds)
+     78 @wraps(func)
+     79 def inner(*args, **kwds):
+     80     with self._recreate_cm():
+---> 81         return func(*args, **kwds)
 
-File C:\ProgramData\anaconda3\Lib\site-packages\IPython\core\pylabtools.py:170, in print_figure(fig, fmt, bbox_inches, base64, **kwargs)
-    167     from matplotlib.backend_bases import FigureCanvasBase
-    168     FigureCanvasBase(fig)
---> 170 fig.canvas.print_figure(bytes_io, **kw)
-    171 data = bytes_io.getvalue()
-    172 if fmt == 'svg':
+File C:\ProgramData\anaconda3\Lib\site-packages\numpy\ma\core.py:3387, in MaskedArray.__setitem__(self, indx, value)
+   3384     mval = tuple([False] * len(_dtype.names))
+   3385 if _mask is nomask:
+   3386     # Set the data, then the mask
+-> 3387     _data[indx] = dval
+   3388     if mval is not nomask:
+   3389         _mask = self._mask = make_mask_none(self.shape, _dtype)
 
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backend_bases.py:2204, in FigureCanvasBase.print_figure(self, filename, dpi, facecolor, edgecolor, orientation, format, bbox_inches, pad_inches, bbox_extra_artists, backend, **kwargs)
-   2200 try:
-   2201     # _get_renderer may change the figure dpi (as vector formats
-   2202     # force the figure dpi to 72), so we need to set it again here.
-   2203     with cbook._setattr_cm(self.figure, dpi=dpi):
--> 2204         result = print_method(
-   2205             filename,
-   2206             facecolor=facecolor,
-   2207             edgecolor=edgecolor,
-   2208             orientation=orientation,
-   2209             bbox_inches_restore=_bbox_inches_restore,
-   2210             **kwargs)
-   2211 finally:
-   2212     if bbox_inches and restore_bbox:
-
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backend_bases.py:2054, in FigureCanvasBase._switch_canvas_and_return_print_method.<locals>.<lambda>(*args, **kwargs)
-   2050     optional_kws = {  # Passed by print_figure for other renderers.
-   2051         "dpi", "facecolor", "edgecolor", "orientation",
-   2052         "bbox_inches_restore"}
-   2053     skip = optional_kws - {*inspect.signature(meth).parameters}
--> 2054     print_method = functools.wraps(meth)(lambda *args, **kwargs: meth(
-   2055         *args, **{k: v for k, v in kwargs.items() if k not in skip}))
-   2056 else:  # Let third-parties do as they see fit.
-   2057     print_method = meth
-
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:496, in FigureCanvasAgg.print_png(self, filename_or_obj, metadata, pil_kwargs)
-    449 def print_png(self, filename_or_obj, *, metadata=None, pil_kwargs=None):
-    450     """
-    451     Write the figure to a PNG file.
-    452 
-   (...)
-    494         *metadata*, including the default 'Software' key.
-    495     """
---> 496     self._print_pil(filename_or_obj, "png", pil_kwargs, metadata)
-
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:444, in FigureCanvasAgg._print_pil(self, filename_or_obj, fmt, pil_kwargs, metadata)
-    439 def _print_pil(self, filename_or_obj, fmt, pil_kwargs, metadata=None):
-    440     """
-    441     Draw the canvas, then save it using `.image.imsave` (to which
-    442     *pil_kwargs* and *metadata* are forwarded).
-    443     """
---> 444     FigureCanvasAgg.draw(self)
-    445     mpl.image.imsave(
-    446         filename_or_obj, self.buffer_rgba(), format=fmt, origin="upper",
-    447         dpi=self.figure.dpi, metadata=metadata, pil_kwargs=pil_kwargs)
-
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:382, in FigureCanvasAgg.draw(self)
-    380 def draw(self):
-    381     # docstring inherited
---> 382     self.renderer = self.get_renderer()
-    383     self.renderer.clear()
-    384     # Acquire a lock on the shared font cache.
-
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:397, in FigureCanvasAgg.get_renderer(self)
-    395 reuse_renderer = (self._lastKey == key)
-    396 if not reuse_renderer:
---> 397     self.renderer = RendererAgg(w, h, self.figure.dpi)
-    398     self._lastKey = key
-    399 return self.renderer
-
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:70, in RendererAgg.__init__(self, width, height, dpi)
-     68 self.width = width
-     69 self.height = height
----> 70 self._renderer = _RendererAgg(int(width), int(height), dpi)
-     71 self._filter_renderers = []
-     73 self._update_methods()
-
-MemoryError: In RendererAgg: Out of memory
-<Figure size 1800x400 with 12 Axes>
+ValueError: could not broadcast input array from shape (2,) into shape (25,)
