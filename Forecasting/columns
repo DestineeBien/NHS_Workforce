@@ -5,22 +5,142 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
 ---------------------------------------------------------------------------
-AttributeError                            Traceback (most recent call last)
-~\AppData\Local\Temp\ipykernel_33264\3757464649.py in ?()
-     72         #Find matching hires gorup
-     73             mask = (all_agg['metric'] == 'Hires')
-     74             for col, val in zip(group_cols, keys):
-     75                 mask &= (all_agg[col] == val)
----> 76             hires_group = all_agg.log[mask]
-     77             merged = pd.merge(group, hires_group, on='month', suffixes= ('_leavers', '_hires'))
-     78 
-     79         if not merged.empty:
+MemoryError                               Traceback (most recent call last)
+Cell In[24], line 66
+     64     axes[i].set_yticklabels([])
+     65 fig.suptitle(f'Seasonal Subseries Plot: {label}')
+---> 66 fig.tight_layout()
+     67 plt.savefig(os.path.join(base_dir, f"{safe_label}_subseries.png"))
+     68 plt.close()
 
-C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py in ?(self, name)
-   6295             and name not in self._accessors
-   6296             and self._info_axis._can_hold_identifiers_and_holds_name(name)
-   6297         ):
-   6298             return self[name]
--> 6299         return object.__getattribute__(self, name)
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\figure.py:3545, in Figure.tight_layout(self, pad, h_pad, w_pad, rect)
+   3543 previous_engine = self.get_layout_engine()
+   3544 self.set_layout_engine(engine)
+-> 3545 engine.execute(self)
+   3546 if previous_engine is not None and not isinstance(
+   3547     previous_engine, (TightLayoutEngine, PlaceHolderLayoutEngine)
+   3548 ):
+   3549     _api.warn_external('The figure layout has changed to tight')
 
-AttributeError: 'DataFrame' object has no attribute 'log'
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\layout_engine.py:181, in TightLayoutEngine.execute(self, fig)
+    164 """
+    165 Execute tight_layout.
+    166 
+   (...)
+    178 .pyplot.tight_layout
+    179 """
+    180 info = self._params
+--> 181 renderer = fig._get_renderer()
+    182 with getattr(renderer, "_draw_disabled", nullcontext)():
+    183     kwargs = get_tight_layout_figure(
+    184         fig, fig.axes, get_subplotspec_list(fig.axes), renderer,
+    185         pad=info['pad'], h_pad=info['h_pad'], w_pad=info['w_pad'],
+    186         rect=info['rect'])
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\figure.py:2762, in Figure._get_renderer(self)
+   2760 def _get_renderer(self):
+   2761     if hasattr(self.canvas, 'get_renderer'):
+-> 2762         return self.canvas.get_renderer()
+   2763     else:
+   2764         return _get_renderer(self)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:397, in FigureCanvasAgg.get_renderer(self)
+    395 reuse_renderer = (self._lastKey == key)
+    396 if not reuse_renderer:
+--> 397     self.renderer = RendererAgg(w, h, self.figure.dpi)
+    398     self._lastKey = key
+    399 return self.renderer
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:70, in RendererAgg.__init__(self, width, height, dpi)
+     68 self.width = width
+     69 self.height = height
+---> 70 self._renderer = _RendererAgg(int(width), int(height), dpi)
+     71 self._filter_renderers = []
+     73 self._update_methods()
+
+MemoryError: In RendererAgg: Out of memory
+---------------------------------------------------------------------------
+MemoryError                               Traceback (most recent call last)
+File C:\ProgramData\anaconda3\Lib\site-packages\IPython\core\formatters.py:343, in BaseFormatter.__call__(self, obj)
+    341     pass
+    342 else:
+--> 343     return printer(obj)
+    344 # Finally look for special method names
+    345 method = get_real_method(obj, self.print_method)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\IPython\core\pylabtools.py:170, in print_figure(fig, fmt, bbox_inches, base64, **kwargs)
+    167     from matplotlib.backend_bases import FigureCanvasBase
+    168     FigureCanvasBase(fig)
+--> 170 fig.canvas.print_figure(bytes_io, **kw)
+    171 data = bytes_io.getvalue()
+    172 if fmt == 'svg':
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backend_bases.py:2204, in FigureCanvasBase.print_figure(self, filename, dpi, facecolor, edgecolor, orientation, format, bbox_inches, pad_inches, bbox_extra_artists, backend, **kwargs)
+   2200 try:
+   2201     # _get_renderer may change the figure dpi (as vector formats
+   2202     # force the figure dpi to 72), so we need to set it again here.
+   2203     with cbook._setattr_cm(self.figure, dpi=dpi):
+-> 2204         result = print_method(
+   2205             filename,
+   2206             facecolor=facecolor,
+   2207             edgecolor=edgecolor,
+   2208             orientation=orientation,
+   2209             bbox_inches_restore=_bbox_inches_restore,
+   2210             **kwargs)
+   2211 finally:
+   2212     if bbox_inches and restore_bbox:
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backend_bases.py:2054, in FigureCanvasBase._switch_canvas_and_return_print_method.<locals>.<lambda>(*args, **kwargs)
+   2050     optional_kws = {  # Passed by print_figure for other renderers.
+   2051         "dpi", "facecolor", "edgecolor", "orientation",
+   2052         "bbox_inches_restore"}
+   2053     skip = optional_kws - {*inspect.signature(meth).parameters}
+-> 2054     print_method = functools.wraps(meth)(lambda *args, **kwargs: meth(
+   2055         *args, **{k: v for k, v in kwargs.items() if k not in skip}))
+   2056 else:  # Let third-parties do as they see fit.
+   2057     print_method = meth
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:496, in FigureCanvasAgg.print_png(self, filename_or_obj, metadata, pil_kwargs)
+    449 def print_png(self, filename_or_obj, *, metadata=None, pil_kwargs=None):
+    450     """
+    451     Write the figure to a PNG file.
+    452 
+   (...)
+    494         *metadata*, including the default 'Software' key.
+    495     """
+--> 496     self._print_pil(filename_or_obj, "png", pil_kwargs, metadata)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:444, in FigureCanvasAgg._print_pil(self, filename_or_obj, fmt, pil_kwargs, metadata)
+    439 def _print_pil(self, filename_or_obj, fmt, pil_kwargs, metadata=None):
+    440     """
+    441     Draw the canvas, then save it using `.image.imsave` (to which
+    442     *pil_kwargs* and *metadata* are forwarded).
+    443     """
+--> 444     FigureCanvasAgg.draw(self)
+    445     mpl.image.imsave(
+    446         filename_or_obj, self.buffer_rgba(), format=fmt, origin="upper",
+    447         dpi=self.figure.dpi, metadata=metadata, pil_kwargs=pil_kwargs)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:382, in FigureCanvasAgg.draw(self)
+    380 def draw(self):
+    381     # docstring inherited
+--> 382     self.renderer = self.get_renderer()
+    383     self.renderer.clear()
+    384     # Acquire a lock on the shared font cache.
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:397, in FigureCanvasAgg.get_renderer(self)
+    395 reuse_renderer = (self._lastKey == key)
+    396 if not reuse_renderer:
+--> 397     self.renderer = RendererAgg(w, h, self.figure.dpi)
+    398     self._lastKey = key
+    399 return self.renderer
+
+File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\backends\backend_agg.py:70, in RendererAgg.__init__(self, width, height, dpi)
+     68 self.width = width
+     69 self.height = height
+---> 70 self._renderer = _RendererAgg(int(width), int(height), dpi)
+     71 self._filter_renderers = []
+     73 self._update_methods()
+
+MemoryError: In RendererAgg: Out of memory
+<Figure size 1800x400 with 12 Axes>
