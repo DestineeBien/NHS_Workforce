@@ -5,93 +5,98 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
 ---------------------------------------------------------------------------
-ValueError                                Traceback (most recent call last)
-Cell In[22], line 27
-     25 palette = sns.color_palette("husl", n_colors=group['year'].nunique())
-     26 fig, ax = plt.subplots(figsize=(10, 6))
----> 27 sns.lineplot(
-     28     data=group,
-     29     x='month_num', y ='count', hue='year', palette=palette, ax=ax, legend=True
-     30 )
-     31 ax.set_title(f'Seasonal Plot: {label}')
-     32 ax.set_xlabel('Month')
+MemoryError                               Traceback (most recent call last)
+Cell In[20], line 74
+     70 # Scatterplot (vs Hires - if available, for leavers only)
+     71 if metric == 'Leavers':
+     72 #Find matching hires gorup
+     73     hires_group = all_agg[
+---> 74         (all_agg['metric'] == 'Hires') &
+     75         (all_agg[group_cols] == pd.Series(keys, index=group_cols).to_dict())
+     76     ]
+     77 merged = pd.merge(group, hires_group, on='month', suffixes= ('_leavers', '_hires'))
+     78 if not merged.empty:
 
-File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\relational.py:485, in lineplot(data, x, y, hue, size, style, units, weights, palette, hue_order, hue_norm, sizes, size_order, size_norm, dashes, markers, style_order, estimator, errorbar, n_boot, seed, orient, sort, err_style, err_kws, legend, ci, ax, **kwargs)
-    471 def lineplot(
-    472     data=None, *,
-    473     x=None, y=None, hue=None, size=None, style=None, units=None, weights=None,
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\ops\common.py:76, in _unpack_zerodim_and_defer.<locals>.new_method(self, other)
+     72             return NotImplemented
+     74 other = item_from_zerodim(other)
+---> 76 return method(self, other)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\arraylike.py:74, in OpsMixin.__rand__(self, other)
+     72 @unpack_zerodim_and_defer("__rand__")
+     73 def __rand__(self, other):
+---> 74     return self._logical_method(other, roperator.rand_)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:7913, in DataFrame._arith_method(self, other, op)
+   7910 self, other = self._align_for_op(other, axis, flex=True, level=None)
+   7912 with np.errstate(all="ignore"):
+-> 7913     new_data = self._dispatch_frame_op(other, op, axis=axis)
+   7914 return self._construct_result(new_data)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:7956, in DataFrame._dispatch_frame_op(self, right, func, axis)
+   7950     assert self.columns.equals(right.columns)
+   7951     # TODO: The previous assertion `assert right._indexed_same(self)`
+   7952     #  fails in cases with empty columns reached via
+   7953     #  _frame_arith_method_with_reindex
+   7954 
+   7955     # TODO operate_blockwise expects a manager of the same type
+-> 7956     bm = self._mgr.operate_blockwise(
+   7957         # error: Argument 1 to "operate_blockwise" of "ArrayManager" has
+   7958         # incompatible type "Union[ArrayManager, BlockManager]"; expected
+   7959         # "ArrayManager"
+   7960         # error: Argument 1 to "operate_blockwise" of "BlockManager" has
+   7961         # incompatible type "Union[ArrayManager, BlockManager]"; expected
+   7962         # "BlockManager"
+   7963         right._mgr,  # type: ignore[arg-type]
+   7964         array_op,
+   7965     )
+   7966     return self._constructor_from_mgr(bm, axes=bm.axes)
+   7968 elif isinstance(right, Series) and axis == 1:
+   7969     # axis=1 means we want to operate row-by-row
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\managers.py:1511, in BlockManager.operate_blockwise(self, other, array_op)
+   1507 def operate_blockwise(self, other: BlockManager, array_op) -> BlockManager:
+   1508     """
+   1509     Apply array_op blockwise with another (aligned) BlockManager.
+   1510     """
+-> 1511     return operate_blockwise(self, other, array_op)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\ops.py:65, in operate_blockwise(left, right, array_op)
+     63 res_blks: list[Block] = []
+     64 for lvals, rvals, locs, left_ea, right_ea, rblk in _iter_block_pairs(left, right):
+---> 65     res_values = array_op(lvals, rvals)
+     66     if (
+     67         left_ea
+     68         and not right_ea
+     69         and hasattr(res_values, "reshape")
+     70         and not is_1d_only_ea_dtype(res_values.dtype)
+     71     ):
+     72         res_values = res_values.reshape(1, -1)
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\ops\array_ops.py:454, in logical_op(left, right, op)
+    450 else:
+    451     # i.e. scalar
+    452     is_other_int_dtype = lib.is_integer(rvalues)
+--> 454 res_values = na_logical_op(lvalues, rvalues, op)
+    456 # For int vs int `^`, `|`, `&` are bitwise operators and return
+    457 #   integer dtypes.  Otherwise these are boolean ops
+    458 if not (left.dtype.kind in "iu" and is_other_int_dtype):
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\ops\array_ops.py:362, in na_logical_op(x, y, op)
+    352 def na_logical_op(x: np.ndarray, y, op):
+    353     try:
+    354         # For exposition, write:
+    355         #  yarr = isinstance(y, np.ndarray)
    (...)
-    481 
-    482     # Handle deprecation of ci parameter
-    483     errorbar = _deprecate_ci(errorbar, ci)
---> 485     p = _LinePlotter(
-    486         data=data,
-    487         variables=dict(
-    488             x=x, y=y, hue=hue, size=size, style=style, units=units, weight=weights
-    489         ),
-    490         estimator=estimator, n_boot=n_boot, seed=seed, errorbar=errorbar,
-    491         sort=sort, orient=orient, err_style=err_style, err_kws=err_kws,
-    492         legend=legend,
-    493     )
-    495     p.map_hue(palette=palette, order=hue_order, norm=hue_norm)
-    496     p.map_size(sizes=sizes, order=size_order, norm=size_norm)
+    360         # Then Cases where this goes through without raising include:
+    361         #  (xint or xbool) and (yint or bool)
+--> 362         result = op(x, y)
+    363     except TypeError:
+    364         if isinstance(y, np.ndarray):
+    365             # bool-bool dtype operations should be OK, should not get here
 
-File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\relational.py:216, in _LinePlotter.__init__(self, data, variables, estimator, n_boot, seed, errorbar, sort, orient, err_style, err_kws, legend)
-    202 def __init__(
-    203     self, *,
-    204     data=None, variables={},
-   (...)
-    210     # the kind of plot to draw, but for the time being we need to set
-    211     # this information so the SizeMapping can use it
-    212     self._default_size_range = (
-    213         np.r_[.5, 2] * mpl.rcParams["lines.linewidth"]
-    214     )
---> 216     super().__init__(data=data, variables=variables)
-    218     self.estimator = estimator
-    219     self.errorbar = errorbar
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\roperator.py:54, in rand_(left, right)
+     53 def rand_(left, right):
+---> 54     return operator.and_(right, left)
 
-File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_base.py:634, in VectorPlotter.__init__(self, data, variables)
-    629 # var_ordered is relevant only for categorical axis variables, and may
-    630 # be better handled by an internal axis information object that tracks
-    631 # such information and is set up by the scale_* methods. The analogous
-    632 # information for numeric axes would be information about log scales.
-    633 self._var_ordered = {"x": False, "y": False}  # alt., used DefaultDict
---> 634 self.assign_variables(data, variables)
-    636 # TODO Lots of tests assume that these are called to initialize the
-    637 # mappings to default values on class initialization. I'd prefer to
-    638 # move away from that and only have a mapping when explicitly called.
-    639 for var in ["hue", "size", "style"]:
-
-File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_base.py:679, in VectorPlotter.assign_variables(self, data, variables)
-    674 else:
-    675     # When dealing with long-form input, use the newer PlotData
-    676     # object (internal but introduced for the objects interface)
-    677     # to centralize / standardize data consumption logic.
-    678     self.input_format = "long"
---> 679     plot_data = PlotData(data, variables)
-    680     frame = plot_data.frame
-    681     names = plot_data.names
-
-File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_core\data.py:58, in PlotData.__init__(self, data, variables)
-     51 def __init__(
-     52     self,
-     53     data: DataSource,
-     54     variables: dict[str, VariableSpec],
-     55 ):
-     57     data = handle_data_source(data)
----> 58     frame, names, ids = self._assign_variables(data, variables)
-     60     self.frame = frame
-     61     self.names = names
-
-File C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_core\data.py:232, in PlotData._assign_variables(self, data, variables)
-    230     else:
-    231         err += "An entry with this name does not appear in `data`."
---> 232     raise ValueError(err)
-    234 else:
-    235 
-    236     # Otherwise, assume the value somehow represents data
-    237 
-    238     # Ignore empty data structures
-    239     if isinstance(val, Sized) and len(val) == 0:
-
-ValueError: Could not interpret value `count` for `y`. An entry with this name does not appear in `data`.
+MemoryError: Unable to allocate 16.9 GiB for an array with shape (47599, 47599) and data type object
