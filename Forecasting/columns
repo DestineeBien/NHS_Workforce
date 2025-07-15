@@ -8,14 +8,15 @@ C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\tsa\stattools.py:693: Run
   acf = avf[: nlags + 1] / avf[0]
 C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\tsa\stattools.py:693: RuntimeWarning: invalid value encountered in divide
   acf = avf[: nlags + 1] / avf[0]
+
 ---------------------------------------------------------------------------
 ValueError                                Traceback (most recent call last)
-Cell In[28], line 107
-    105     plt.close(fig)
-    106     continue
---> 107 plot_acf(acf_data, lags=24, ax=ax)
-    108 ax.set_title(f'ACF: {label}')
-    109 plt.tight_layout()
+Cell In[30], line 130
+    128 plt.close(fig)
+    129 fig, ax = plt.subplots(figsize=(8, 4))
+--> 130 plot_acf(wn, lags=24, ax=ax)
+    131 ax.set_title('ACF: White Noise')
+    132 plt.tight_layout()
 
 File C:\ProgramData\anaconda3\Lib\site-packages\pandas\util\_decorators.py:213, in deprecate_kwarg.<locals>._deprecate_kwarg.<locals>.wrapper(*args, **kwargs)
     211         raise TypeError(msg)
@@ -80,4 +81,4 @@ File C:\ProgramData\anaconda3\Lib\site-packages\numpy\ma\core.py:3387, in Masked
    3388     if mval is not nomask:
    3389         _mask = self._mask = make_mask_none(self.shape, _dtype)
 
-ValueError: could not broadcast input array from shape (2,) into shape (25,)
+ValueError: could not broadcast input array from shape (4,) into shape (25,)
