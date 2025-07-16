@@ -9,6 +9,210 @@ C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\tsa\stattools.py:693: Run
 C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\tsa\stattools.py:693: RuntimeWarning: invalid value encountered in divide
   acf = avf[: nlags + 1] / avf[0]
 
+summary_list = []
+
+for metric in all_agg["metric"].unique():
+    df_metric = all_agg[all_agg["metric"] == metric]
+    for keys, group in df_metric.groupby(group_cols):
+        label = "_".join([str(k) for k in keys if pd.notnull(k)] + [metric])
+        safe_label = safe_filename(label)
+
+        # Time Series Patterns
+        fig = plt.figure(figsize=(10, 5))
+        plt.plot(group["month"], group["Count"], marker="o")
+        plt.title(
+            f"{metric} - {' | '.join([f' {col}: {val}' for col, val in zip(group_cols, keys)])}"
+        )
+        plt.xlabel("month")
+        plt.ylabel("Count")
+        plt.tight_layout()
+        plt.savefig(os.path.join(base_dir, f"{safe_label}_timeseries.png"))
+        plt.clf()
+        plt.close(fig)
+
+        # 2.4 Seasonal Plot
+        group = group.copy()
+        group["year"] = group["month"].dt.year
+        group["month_num"] = group["month"].dt.month
+        palette = sns.color_palette("husl", n_colors=group["year"].nunique())
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.lineplot(
+            data=group,
+            x="month_num",
+            y="Count",
+            hue="year",
+            palette=palette,
+            ax=ax,
+            legend=True,
+        )
+
+        ax.set_title(f"Seasonal Plot: {label}")
+        ax.set_xlabel("Month")
+        ax.set_ylabel("Count")
+        ax.set_xticks(
+            range(1, 13),
+            [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sept",
+                "Oct",
+                "Nov",
+                "Dec",
+            ],
+        )
+        fig.tight_layout()
+        plt.savefig(os.path.join(base_dir, f"{safe_label}_seasonal_plot.png"))
+        plt.clf()
+        plt.close(fig)
+
+        # Seasonal subseries plot
+        group["month_name"] = group["month"].dt.strftime("%B")
+        group["month_name"] = pd.Categorical(
+            group["month_name"],
+            categories=[
+                "January",
+                "Febuary",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+            ],
+            ordered=True,
+        )
+        group["year"] = group["month"].dt.year
+        fig, axes = plt.subplots(1, 12, sharey=True, figsize=(18, 4))
+        for i, month in enumerate(group["month_name"].cat.categories):
+            data = group[group["month_name"] == month]
+            mean_val = data["Count"].mean()
+            axes[i].plot(data["year"], data["Count"], color="black")
+            axes[i].axhline(mean_val, color="blue", linestyle="-", linewidth=1)
+            axes[i].set_title(month[:3])
+            axes[i].set_xlabel("")
+            axes[i].tick_params(axis="x", rotation=90)
+        if i == 0:
+            axes[i].set_ylabel("Count")
+        else:
+            axes[i].set_yticklabels([])
+        fig.suptitle(f"Seasonal Subseries Plot: {label}")
+        fig.tight_layout()
+        plt.savefig(os.path.join(base_dir, f"{safe_label}_subseries.png"))
+        plt.clf()
+        plt.close(fig)
+
+        # Scatterplot (vs Hires - if available, for leavers only)
+        if metric == "Leavers":
+            # Find matching hires gorup
+            mask = all_agg["metric"] == "Hires"
+            for col, val in zip(group_cols, keys):
+                mask &= all_agg[col] == val
+            hires_group = all_agg.loc[mask]
+            merged = pd.merge(
+                group, hires_group, on="month", suffixes=("_leavers", "_hires")
+            )
+
+        if not merged.empty:
+            sns.scatterplot(x="Count_hires", y="Count_leavers", data=merged)
+            plt.title(f"Scatterplot: Hires vs Leavers - {label}")
+            plt.xlabel("Hires")
+            plt.ylabel("Leavers")
+            plt.tight_layout()
+            plt.savefig(os.path.join(base_dir, f"{safe_label}_scatter.png"))
+            plt.clf()
+            plt.close(fig)
+
+        # Lag Plot
+        group_sorted = group.sort_values("month")
+        group_sorted["Count_lag1"] = group_sorted["Count"].shift(1)
+        plt.figure(figsize=(6, 6))
+        plt.scatter(group_sorted["Count_lag1"], group_sorted["Count"], alpha=0.6)
+        plt.title(f"Lag Plot: {label}")
+        plt.xlabel("Count (Previous Month)")
+        plt.ylabel("Count (Current Month)")
+        plt.tight_layout()
+        plt.savefig(os.path.join(base_dir, f"{safe_label}_lag_plot.png"))
+        plt.clf()
+        plt.close(fig)
+
+        # Autocorrelation Function (ACF)
+        group_sorted = group.sort_values("month")
+        acf_data = group_sorted["Count"].dropna()
+        fig, ax = plt.subplots(figsize=(8, 4))
+        if len(acf_data) < 2 or acf_data.nunique() < 2:
+            plt.close(fig)
+            continue
+
+        max_lags = min(24, len(acf_data) - 1)
+        if max_lags < 1:
+            plt.close(fig)
+            continue
+
+        plot_acf(acf_data, lags=max_lags, ax=ax)
+        ax.set_title(f"ACF: {label}")
+        plt.tight_layout()
+        plt.savefig(os.path.join(base_dir, f"{safe_label}_acf.png"))
+        plt.clf()
+        plt.close(fig)
+
+        # White Noise (for comparison)
+        if metric == all_agg["metric"].unique()[0] and keys == tuple(
+            [group[col].iloc[0] for col in group_cols]
+        ):
+            np.random.seed(42)
+            wn = pd.Series(np.random.normal(0, 1, len(group_sorted)))
+
+            # Plot white noise time series
+            fig = plt.figure(figsize=(10, 3))
+            plt.plot(group_sorted["month"], wn)
+            plt.title("White Noise Series (for comparison)")
+            plt.tight_layout()
+            plt.savefig(os.path.join(base_dir, f"{safe_label}_white_noise_example.png"))
+            plt.clf()
+            plt.close(fig)
+
+            # Plot the ACF of white noise, robust against length errors
+            fig, ax = plt.subplots(figsize=(8, 4))
+            max_lags = min(24, len(wn) - 1)
+            if max_lags < 1:
+                plt.close(fig)
+            else:
+                plot_acf(wn, lags=max_lags, ax=ax)
+                ax.set_title("ACF: White Noise")
+                plt.tight_layout()
+                plt.savefig(os.path.join(base_dir, f"{safe_label}_white_noise_acf.png"))
+                plt.clf()
+                plt.close(fig)
+
+        stats = group["Count"].describe().astype(np.float32)
+        stats["metric"] = metric
+        for col, val in zip(group_cols, keys):
+            stats[col] = val
+        summary_list.append(stats)
+
+        gc.collect()
+
+# Export Summary Statistics
+summary_df = pd.DataFrame(summary_list)
+summary_df.to_csv(
+    os.path.join(base_dir, "workforce_group_summary_stats.csv"), index=False
+)
+summary_df.to_excel(
+    os.path.join(base_dir, "workforce_group_summary_stats.xlsx"), index=False
+)
+
+print("Memory usage by Dataframe:")
+print(summary_df.memory_usage(deep=True))
 C:\Users\Destinee.HassanBien\AppData\Local\Temp\ipykernel_35048\2628114557.py:135: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
   fig, ax = plt.subplots(figsize=(8, 4))
 C:\Users\Destinee.HassanBien\AppData\Local\Temp\ipykernel_35048\2628114557.py:10: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
