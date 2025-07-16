@@ -9,13 +9,15 @@ C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\tsa\stattools.py:693: Run
 C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\tsa\stattools.py:693: RuntimeWarning: invalid value encountered in divide
   acf = avf[: nlags + 1] / avf[0]
 
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-Cell In[26], line 17
-     15 plt.tight_layout()
-     16 plt.savefig(os.path.join(base_dir, f"{safe_label}_timeseries.png"))
----> 17 plt.close(fig)
-     19  # 2.4 Seasonal Plot 
-     20 group = group.copy()
+C:\Users\Destinee.HassanBien\AppData\Local\Temp\ipykernel_35048\2628114557.py:135: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  fig, ax = plt.subplots(figsize=(8, 4))
+C:\Users\Destinee.HassanBien\AppData\Local\Temp\ipykernel_35048\2628114557.py:10: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  fig = plt.figure(figsize=(10, 5))
+C:\Users\Destinee.HassanBien\AppData\Local\Temp\ipykernel_35048\2628114557.py:26: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  fig, ax = plt.subplots(figsize=(10, 6))
+C:\Users\Destinee.HassanBien\AppData\Local\Temp\ipykernel_35048\2628114557.py:82: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  fig, axes = plt.subplots(1, 12, sharey=True, figsize=(18, 4))
+C:\Users\Destinee.HassanBien\AppData\Local\Temp\ipykernel_35048\2628114557.py:123: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
+  plt.figure(figsize=(6, 6))
+Selection deleted
 
-NameError: name 'fig' is not defined
