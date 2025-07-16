@@ -10,75 +10,12 @@ C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\tsa\stattools.py:693: Run
   acf = avf[: nlags + 1] / avf[0]
 
 ---------------------------------------------------------------------------
-ValueError                                Traceback (most recent call last)
-Cell In[30], line 130
-    128 plt.close(fig)
-    129 fig, ax = plt.subplots(figsize=(8, 4))
---> 130 plot_acf(wn, lags=24, ax=ax)
-    131 ax.set_title('ACF: White Noise')
-    132 plt.tight_layout()
+NameError                                 Traceback (most recent call last)
+Cell In[26], line 17
+     15 plt.tight_layout()
+     16 plt.savefig(os.path.join(base_dir, f"{safe_label}_timeseries.png"))
+---> 17 plt.close(fig)
+     19  # 2.4 Seasonal Plot 
+     20 group = group.copy()
 
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\util\_decorators.py:213, in deprecate_kwarg.<locals>._deprecate_kwarg.<locals>.wrapper(*args, **kwargs)
-    211         raise TypeError(msg)
-    212     kwargs[new_arg_name] = new_arg_value
---> 213 return func(*args, **kwargs)
-
-File C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\graphics\tsaplots.py:229, in plot_acf(x, ax, lags, alpha, use_vlines, adjusted, fft, missing, title, zero, auto_ylims, bartlett_confint, vlines_kwargs, **kwargs)
-    226 if alpha is not None:
-    227     acf_x, confint = acf_x[:2]
---> 229 _plot_corr(
-    230     ax,
-    231     title,
-    232     acf_x,
-    233     confint,
-    234     lags,
-    235     irregular,
-    236     use_vlines,
-    237     vlines_kwargs,
-    238     auto_ylims=auto_ylims,
-    239     **kwargs,
-    240 )
-    242 return fig
-
-File C:\ProgramData\anaconda3\Lib\site-packages\statsmodels\graphics\tsaplots.py:51, in _plot_corr(ax, title, acf_x, confint, lags, irregular, use_vlines, vlines_kwargs, auto_ylims, skip_lag0_confint, **kwargs)
-     48         confint = confint[lags]
-     50 if use_vlines:
----> 51     ax.vlines(lags, [0], acf_x, **vlines_kwargs)
-     52     ax.axhline(**kwargs)
-     54 kwargs.setdefault("marker", "o")
-
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\__init__.py:1473, in _preprocess_data.<locals>.inner(ax, data, *args, **kwargs)
-   1470 @functools.wraps(func)
-   1471 def inner(ax, *args, data=None, **kwargs):
-   1472     if data is None:
--> 1473         return func(
-   1474             ax,
-   1475             *map(sanitize_sequence, args),
-   1476             **{k: sanitize_sequence(v) for k, v in kwargs.items()})
-   1478     bound = new_sig.bind(ax, *args, **kwargs)
-   1479     auto_label = (bound.arguments.get(label_namer)
-   1480                   or bound.kwargs.get(label_namer))
-
-File C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\axes\_axes.py:1253, in Axes.vlines(self, x, ymin, ymax, colors, linestyles, label, **kwargs)
-   1251 masked_verts[:, 0, 1] = ymin
-   1252 masked_verts[:, 1, 0] = x
--> 1253 masked_verts[:, 1, 1] = ymax
-   1255 lines = mcoll.LineCollection(masked_verts, colors=colors,
-   1256                              linestyles=linestyles, label=label)
-   1257 self.add_collection(lines, autolim=False)
-
-File C:\ProgramData\anaconda3\Lib\contextlib.py:81, in ContextDecorator.__call__.<locals>.inner(*args, **kwds)
-     78 @wraps(func)
-     79 def inner(*args, **kwds):
-     80     with self._recreate_cm():
----> 81         return func(*args, **kwds)
-
-File C:\ProgramData\anaconda3\Lib\site-packages\numpy\ma\core.py:3387, in MaskedArray.__setitem__(self, indx, value)
-   3384     mval = tuple([False] * len(_dtype.names))
-   3385 if _mask is nomask:
-   3386     # Set the data, then the mask
--> 3387     _data[indx] = dval
-   3388     if mval is not nomask:
-   3389         _mask = self._mask = make_mask_none(self.shape, _dtype)
-
-ValueError: could not broadcast input array from shape (4,) into shape (25,)
+NameError: name 'fig' is not defined
