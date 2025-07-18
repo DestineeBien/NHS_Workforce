@@ -4,17 +4,105 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
+all_results = []
+summary_stats = []
+
+for idx, row in long_groups.iterrows():
+    keys = [row[col] for col in group_cols]
+    metric = row['metric']
+    df_metric = all_agg[
+        (all_agg['metric'] == metric) &
+        (all_agg[group_cols[0]] == keys[0]) &
+        (all_agg[group_cols[1]] == keys[1]) &
+        (all_agg[group_cols[2]] == keys[2])
+    ].copy()
+
+    label = '_'.join([str(k) for k in keys] + [metric])
+    safe_label = ''.join(e if e.isalnum() else '_' for e in label)
+    df_metric = df_metric.sort_values('month')
+    ts = df_metric.set_index('month')['count']
+    
+    try:
+        ts_trans, lam, offset = apply_boxcox(ts)
+    except Exception:
+            lam, ts_trans, offset = None, ts, 0
+    if isinstance(ts_trans, np.ndarray):
+        ts_trans = pd.Series(ts_trans, index=ts.index)
+
+        
+        
+    # Classical decomposition 
+    try:
+        classical = decompose_series(ts_trans, model='additive', period=12)
+        classical_df = pd.DataFrame({
+            'month': classical.seasonal.index,
+            'observed': classical.observed,
+            'trend': classical.trend,
+            'seasonal': classical.seasonal,
+            'remainder': classical.resid
+        })
+        classical_df['season_adjust'] = classical_df['observed'] - classical_df['seasonal']
+        classical_df['type'] = 'classical'
+    except Exception as e:
+        print(f"Classical decomposition failed for {label}: {e}")
+        continue
+
+    # STL decomposition 
+    try:
+        stl = stl_decompose_series(pd.Series(ts_trans, index=classical_df['month']))
+        stl_df = pd.DataFrame({
+            'month': classical_df['month'],
+            'observed': ts_trans.values,
+            'stl_trend': stl.trend,
+            'stl_seasonal': stl.seasonal,
+            'stl_resid': stl.resid
+        })
+        stl_df['type'] = 'stl'
+    except Exception as e:
+        print(f"STL decomposition failed for {label}: {e}")
+        continue
+
+    # Summary row
+    summary = compute_summary(classical, keys, metric, lam, offset)
+    summary_stats.append(summary)
+
+    
+        # Ensure month is a column, not an index 
+    if 'month' not in classical_df.columns:
+        classical_df = classical_df.reset_index()
+    if 'month' not in stl_df.columns:
+        stl_df = stl_df.reset_index()
+
+    # Save result
+    res_out = classical_df.merge(stl_df, on='month', how='left', suffixes=('', '_stl'))
+    for col, val in zip(group_cols, keys): 
+        res_out[col] = val
+    res_out['metric'] = metric
+    all_results.append(res_out)
+
+            # Plotting with proven memory safe pattern 
+    fig, ax = plt.subplots(4, 1, sharex=True, figsize=(10, 8))
+    ax[0].plot(res_out['month'], res_out['observed'], color='black'); ax[0].set_ylavel('Observed')
+    ax[1].plot(res_out['month'], res_out['trend'], color='blue'); ax[1].set_ylavel('Trend')
+    ax[2].plot(res_out['month'], res_out['seasonal'], color='green'); ax[2].set_ylavel('Seasonal')
+    ax[3].plot(res_out['month'], res_out['remainder'], color='grey'); ax[3].set_ylavel('Remainder')
+    plt.suptitle(f"Decomposition for: {label}")
+    plt.tight_layout()
+    plt.savefig(os.path.join(base_dir, f"decomp_{safe_label}.png"))
+    plt.clf()
+    plt.close(fig)
+    gc.collect()
 ---------------------------------------------------------------------------
 ValueError                                Traceback (most recent call last)
-~\AppData\Local\Temp\ipykernel_4632\671638457.py in ?()
-     60     summary = compute_summary(classical, keys, metric, lam, offset)
-     61     summary_stats.append(summary)
-     62 
-     63             # Save result
----> 64     res_out = classical_df.merge(stl_df, on='month', how='left', suffixes=('', '_stl'))
-     65     for col, val in zip(group_cols, key):
-     66         res_out[col] = val
-     67     res_out['metric'] = metric
+~\AppData\Local\Temp\ipykernel_4632\4108510329.py in ?()
+     67     if 'month' not in stl_df.columns:
+     68         stl_df = stl_df.reset_index()
+     69 
+     70     # Save result
+---> 71     res_out = classical_df.merge(stl_df, on='month', how='left', suffixes=('', '_stl'))
+     72     for col, val in zip(group_cols, keys):
+     73         res_out[col] = val
+     74     res_out['metric'] = metric
 
 C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py in ?(self, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)
   10828         validate: MergeValidate | None = None,
@@ -74,7 +162,6 @@ C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py in ?(self, key
 -> 1868             raise ValueError(msg)
 
 ValueError: 'month' is both an index level and a column label, which is ambiguous.
-
 
 
 
