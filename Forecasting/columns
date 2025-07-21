@@ -6,17 +6,21 @@ Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Gr
 
 ---------------------------------------------------------------------------
 AttributeError                            Traceback (most recent call last)
-Cell In[27], line 35
-     33 stl = STL(ts_trans, period=12, seasonal=13, trend=21, robust=True)
-     34 res_stl = stl.fit()
----> 35 dcmp = pd.Dataframe({
-     36     "ds": ts_trans.index,
-     37     "data": ts_trans.values,
-     38     "trend": res_stl.seasonal,
-     39     "seasonal": res_stl.seasonal,
-     40     "remainder": res_stl.resid
-     41 }).rest_index(drop=True)
-     43 # Plot
-     44 fig, axes = plt.subplots(nrows=4, ncols=1, sharex=True, figsize=(8, 6))
+~\AppData\Local\Temp\ipykernel_13316\3269076903.py in ?()
+     37         "data": ts_trans.values,
+     38         "trend": res_stl.seasonal,
+     39         "seasonal": res_stl.seasonal,
+     40         "remainder": res_stl.resid
+---> 41     }).rest_index(drop=True)
+     42 
+     43     # Plot
+     44     fig, axes = plt.subplots(nrows=4, ncols=1, sharex=True, figsize=(8, 6))
 
-AttributeError: module 'pandas' has no attribute 'Dataframe'
+C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py in ?(self, name)
+   6295             and name not in self._accessors
+   6296             and self._info_axis._can_hold_identifiers_and_holds_name(name)
+   6297         ):
+   6298             return self[name]
+-> 6299         return object.__getattribute__(self, name)
+
+AttributeError: 'DataFrame' object has no attribute 'rest_index'
