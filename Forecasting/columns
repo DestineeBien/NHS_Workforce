@@ -4,7 +4,19 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
-Cell In[19], line 44
-    fig, axes = plt.subplots(nrows=4, ncols=1, sharex=True, figsize(8, 6))
-                                                                         ^
-SyntaxError: positional argument follows keyword argument
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+Cell In[20], line 34
+     31     continue #saftey check
+     33 stl = STL(ts_trans, period=12, seasonal=13, trend=21, robust=True).fit()
+---> 34 res_stl = stl.fit()
+     35 dcmp = pd.Dataframe({
+     36     "ds": ts_trans.index,
+     37     "data": ts_trans.values,
+   (...)
+     40     "remainder": res_stl.resid
+     41 }).rest_index(drop=True)
+     43 # Plot
+
+AttributeError: 'DecomposeResult' object has no attribute 'fit'
+
