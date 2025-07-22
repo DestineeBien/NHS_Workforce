@@ -6,15 +6,11 @@ Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Gr
 
 ---------------------------------------------------------------------------
 AttributeError                            Traceback (most recent call last)
-~\AppData\Local\Temp\ipykernel_13316\3269076903.py in ?()
-     37         "data": ts_trans.values,
-     38         "trend": res_stl.seasonal,
-     39         "seasonal": res_stl.seasonal,
-     40         "remainder": res_stl.resid
----> 41     }).rest_index(drop=True)
-     42 
-     43     # Plot
-     44     fig, axes = plt.subplots(nrows=4, ncols=1, sharex=True, figsize=(8, 6))
+~\AppData\Local\Temp\ipykernel_11504\835246720.py in ?()
+----> 1 sample_group = all_agg.groupby(['service group', 'staff group', 'metric']).size().idmax()
+      2 sample_df = all_agg[
+      3     (all_agg['service group'] == sample_group[0]) &
+      4     (all_agg['staff group'] == sample_group[1]) &
 
 C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py in ?(self, name)
    6295             and name not in self._accessors
@@ -23,4 +19,4 @@ C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py in ?(self, nam
    6298             return self[name]
 -> 6299         return object.__getattribute__(self, name)
 
-AttributeError: 'DataFrame' object has no attribute 'rest_index'
+AttributeError: 'Series' object has no attribute 'idmax'
