@@ -5,18 +5,12 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
 ---------------------------------------------------------------------------
-AttributeError                            Traceback (most recent call last)
-~\AppData\Local\Temp\ipykernel_11504\835246720.py in ?()
-----> 1 sample_group = all_agg.groupby(['service group', 'staff group', 'metric']).size().idmax()
-      2 sample_df = all_agg[
-      3     (all_agg['service group'] == sample_group[0]) &
-      4     (all_agg['staff group'] == sample_group[1]) &
+ImportError                               Traceback (most recent call last)
+Cell In[2], line 19
+     17 from utilsforecast.plotting import plot_series as plot_series_utils
+     18 from utilsforecast.evaluation import evaluate
+---> 19 from utilsforecast.losses import rsme, mae, mape, mase
+     20 from utilsforecast.feature_engineering import trend, fourier, pipeline
+     21 from utilsforecast.preprocessing import fill_gaps
 
-C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py in ?(self, name)
-   6295             and name not in self._accessors
-   6296             and self._info_axis._can_hold_identifiers_and_holds_name(name)
-   6297         ):
-   6298             return self[name]
--> 6299         return object.__getattribute__(self, name)
-
-AttributeError: 'Series' object has no attribute 'idmax'
+ImportError: cannot import name 'rsme' from 'utilsforecast.losses' (C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\utilsforecast\losses.py)
