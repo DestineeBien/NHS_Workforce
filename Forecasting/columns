@@ -4,13 +4,177 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
+14:23:15 - cmdstanpy - INFO - Chain [1] start processing
+Optimization terminated abnormally. Falling back to Newton.
+14:23:16 - cmdstanpy - INFO - Chain [1] start processing
 ---------------------------------------------------------------------------
-ImportError                               Traceback (most recent call last)
-Cell In[2], line 19
-     17 from utilsforecast.plotting import plot_series as plot_series_utils
-     18 from utilsforecast.evaluation import evaluate
----> 19 from utilsforecast.losses import rsme, mae, mape, mase
-     20 from utilsforecast.feature_engineering import trend, fourier, pipeline
-     21 from utilsforecast.preprocessing import fill_gaps
+OSError                                   Traceback (most recent call last)
+File ~\AppData\Roaming\Python\Python312\site-packages\cmdstanpy\model.py:2061, in CmdStanModel._run_cmdstan(self, runset, idx, show_progress, show_console, progress_hook, timeout)
+   2060 fd_out = open(runset.stdout_files[idx], 'w')
+-> 2061 proc = subprocess.Popen(
+   2062     cmd,
+   2063     bufsize=1,
+   2064     stdin=subprocess.DEVNULL,
+   2065     stdout=subprocess.PIPE,
+   2066     stderr=subprocess.STDOUT,  # avoid buffer overflow
+   2067     env=os.environ,
+   2068     universal_newlines=True,
+   2069 )
+   2070 timer: Optional[threading.Timer]
 
-ImportError: cannot import name 'rsme' from 'utilsforecast.losses' (C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\utilsforecast\losses.py)
+File C:\ProgramData\anaconda3\Lib\subprocess.py:1026, in Popen.__init__(self, args, bufsize, executable, stdin, stdout, stderr, preexec_fn, close_fds, shell, cwd, env, universal_newlines, startupinfo, creationflags, restore_signals, start_new_session, pass_fds, user, group, extra_groups, encoding, errors, text, umask, pipesize, process_group)
+   1023             self.stderr = io.TextIOWrapper(self.stderr,
+   1024                     encoding=encoding, errors=errors)
+-> 1026     self._execute_child(args, executable, preexec_fn, close_fds,
+   1027                         pass_fds, cwd, env,
+   1028                         startupinfo, creationflags, shell,
+   1029                         p2cread, p2cwrite,
+   1030                         c2pread, c2pwrite,
+   1031                         errread, errwrite,
+   1032                         restore_signals,
+   1033                         gid, gids, uid, umask,
+   1034                         start_new_session, process_group)
+   1035 except:
+   1036     # Cleanup if the child failed starting.
+
+File C:\ProgramData\anaconda3\Lib\subprocess.py:1538, in Popen._execute_child(self, args, executable, preexec_fn, close_fds, pass_fds, cwd, env, startupinfo, creationflags, shell, p2cread, p2cwrite, c2pread, c2pwrite, errread, errwrite, unused_restore_signals, unused_gid, unused_gids, unused_uid, unused_umask, unused_start_new_session, unused_process_group)
+   1537 try:
+-> 1538     hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+   1539                              # no special security
+   1540                              None, None,
+   1541                              int(not close_fds),
+   1542                              creationflags,
+   1543                              env,
+   1544                              cwd,
+   1545                              startupinfo)
+   1546 finally:
+   1547     # Child is launched. Close the parent's copy of those pipe
+   1548     # handles that only the child should have open.  You need
+   (...)
+   1551     # pipe will not close when the child process exits and the
+   1552     # ReadFile will hang.
+
+OSError: [WinError 1260] This program is blocked by group policy. For more information, contact your system administrator
+
+The above exception was the direct cause of the following exception:
+
+RuntimeError                              Traceback (most recent call last)
+File ~\AppData\Roaming\Python\Python312\site-packages\prophet\models.py:121, in CmdStanPyBackend.fit(self, stan_init, stan_data, **kwargs)
+    120 try:
+--> 121     self.stan_fit = self.model.optimize(**args)
+    122 except RuntimeError as e:
+    123     # Fall back on Newton
+
+File ~\AppData\Roaming\Python\Python312\site-packages\cmdstanpy\model.py:644, in CmdStanModel.optimize(self, data, seed, inits, output_dir, sig_figs, save_profile, algorithm, init_alpha, tol_obj, tol_rel_obj, tol_grad, tol_rel_grad, tol_param, history_size, iter, save_iterations, require_converged, show_console, refresh, time_fmt, timeout, jacobian)
+    643     runset = RunSet(args=args, chains=1, time_fmt=time_fmt)
+--> 644     self._run_cmdstan(
+    645         runset,
+    646         dummy_chain_id,
+    647         show_console=show_console,
+    648         timeout=timeout,
+    649     )
+    650 runset.raise_for_timeouts()
+
+File ~\AppData\Roaming\Python\Python312\site-packages\cmdstanpy\model.py:2110, in CmdStanModel._run_cmdstan(self, runset, idx, show_progress, show_console, progress_hook, timeout)
+   2109     msg = 'Failed with error {}\n'.format(str(e))
+-> 2110     raise RuntimeError(msg) from e
+   2111 finally:
+
+RuntimeError: Failed with error [WinError 1260] This program is blocked by group policy. For more information, contact your system administrator
+
+
+During handling of the above exception, another exception occurred:
+
+OSError                                   Traceback (most recent call last)
+File ~\AppData\Roaming\Python\Python312\site-packages\cmdstanpy\model.py:2061, in CmdStanModel._run_cmdstan(self, runset, idx, show_progress, show_console, progress_hook, timeout)
+   2060 fd_out = open(runset.stdout_files[idx], 'w')
+-> 2061 proc = subprocess.Popen(
+   2062     cmd,
+   2063     bufsize=1,
+   2064     stdin=subprocess.DEVNULL,
+   2065     stdout=subprocess.PIPE,
+   2066     stderr=subprocess.STDOUT,  # avoid buffer overflow
+   2067     env=os.environ,
+   2068     universal_newlines=True,
+   2069 )
+   2070 timer: Optional[threading.Timer]
+
+File C:\ProgramData\anaconda3\Lib\subprocess.py:1026, in Popen.__init__(self, args, bufsize, executable, stdin, stdout, stderr, preexec_fn, close_fds, shell, cwd, env, universal_newlines, startupinfo, creationflags, restore_signals, start_new_session, pass_fds, user, group, extra_groups, encoding, errors, text, umask, pipesize, process_group)
+   1023             self.stderr = io.TextIOWrapper(self.stderr,
+   1024                     encoding=encoding, errors=errors)
+-> 1026     self._execute_child(args, executable, preexec_fn, close_fds,
+   1027                         pass_fds, cwd, env,
+   1028                         startupinfo, creationflags, shell,
+   1029                         p2cread, p2cwrite,
+   1030                         c2pread, c2pwrite,
+   1031                         errread, errwrite,
+   1032                         restore_signals,
+   1033                         gid, gids, uid, umask,
+   1034                         start_new_session, process_group)
+   1035 except:
+   1036     # Cleanup if the child failed starting.
+
+File C:\ProgramData\anaconda3\Lib\subprocess.py:1538, in Popen._execute_child(self, args, executable, preexec_fn, close_fds, pass_fds, cwd, env, startupinfo, creationflags, shell, p2cread, p2cwrite, c2pread, c2pwrite, errread, errwrite, unused_restore_signals, unused_gid, unused_gids, unused_uid, unused_umask, unused_start_new_session, unused_process_group)
+   1537 try:
+-> 1538     hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+   1539                              # no special security
+   1540                              None, None,
+   1541                              int(not close_fds),
+   1542                              creationflags,
+   1543                              env,
+   1544                              cwd,
+   1545                              startupinfo)
+   1546 finally:
+   1547     # Child is launched. Close the parent's copy of those pipe
+   1548     # handles that only the child should have open.  You need
+   (...)
+   1551     # pipe will not close when the child process exits and the
+   1552     # ReadFile will hang.
+
+OSError: [WinError 1260] This program is blocked by group policy. For more information, contact your system administrator
+
+The above exception was the direct cause of the following exception:
+
+RuntimeError                              Traceback (most recent call last)
+Cell In[21], line 6
+      4 test = prophet_df[prophet_df['ds'] >= split_date]
+      5 m = Prophet(yearly_seasonality=True, weekly_seasonality=False, daily_seasonality=False)
+----> 6 m.fit(train)
+      7 future = m.make_future_dataframe(periods=len(test), freq='MS')
+      8 forecast = m.predict(future)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\prophet\forecaster.py:1232, in Prophet.fit(self, df, **kwargs)
+   1230     self.params = self.stan_backend.sampling(stan_init, dat, self.mcmc_samples, **kwargs)
+   1231 else:
+-> 1232     self.params = self.stan_backend.fit(stan_init, dat, **kwargs)
+   1234 self.stan_fit = self.stan_backend.stan_fit
+   1235 # If no changepoints were requested, replace delta with 0s
+
+File ~\AppData\Roaming\Python\Python312\site-packages\prophet\models.py:128, in CmdStanPyBackend.fit(self, stan_init, stan_data, **kwargs)
+    126     logger.warning('Optimization terminated abnormally. Falling back to Newton.')
+    127     args['algorithm'] = 'Newton'
+--> 128     self.stan_fit = self.model.optimize(**args)
+    129 params = self.stan_to_dict_numpy(
+    130     self.stan_fit.column_names, self.stan_fit.optimized_params_np)
+    131 for par in params:
+
+File ~\AppData\Roaming\Python\Python312\site-packages\cmdstanpy\model.py:644, in CmdStanModel.optimize(self, data, seed, inits, output_dir, sig_figs, save_profile, algorithm, init_alpha, tol_obj, tol_rel_obj, tol_grad, tol_rel_grad, tol_param, history_size, iter, save_iterations, require_converged, show_console, refresh, time_fmt, timeout, jacobian)
+    642     dummy_chain_id = 0
+    643     runset = RunSet(args=args, chains=1, time_fmt=time_fmt)
+--> 644     self._run_cmdstan(
+    645         runset,
+    646         dummy_chain_id,
+    647         show_console=show_console,
+    648         timeout=timeout,
+    649     )
+    650 runset.raise_for_timeouts()
+    652 if not runset._check_retcodes():
+
+File ~\AppData\Roaming\Python\Python312\site-packages\cmdstanpy\model.py:2110, in CmdStanModel._run_cmdstan(self, runset, idx, show_progress, show_console, progress_hook, timeout)
+   2108 except OSError as e:
+   2109     msg = 'Failed with error {}\n'.format(str(e))
+-> 2110     raise RuntimeError(msg) from e
+   2111 finally:
+   2112     fd_out.close()
+
+RuntimeError: Failed with error [WinError 1260] This program is blocked by group policy. For more information, contact your system administrator
