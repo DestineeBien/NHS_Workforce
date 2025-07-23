@@ -5,67 +5,32 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
 ---------------------------------------------------------------------------
-ValueError                                Traceback (most recent call last)
-Cell In[7], line 17
-     15 sf = StatsForecast(models=models, freq="MS")
-     16 # Run rolling test (fit on train, forecast h steps ahead)
----> 17 fcs = sf.forecast(df=sf_df, h=h)
-     18 # Merge with truth for error calc
-     19 truth = sf_df[["unique_id", "ds", "y"]].iloc[-h:].reset_index(drop=True)
+KeyError                                  Traceback (most recent call last)
+Cell In[40], line 3
+      1 sf_df = sample_df.rename(columns={'month': 'ds', 'count': 'y'})
+      2 [['ds', 'y']].copy()
+----> 3 sf_df = sf_df[["unique_id", "ds", "y"]]
+      5 h = min(12, len(sf_df)//5)
+      6 train = sf_df.iloc[:-h]
 
-File ~\AppData\Roaming\Python\Python312\site-packages\statsforecast\core.py:1535, in StatsForecast.forecast(self, h, df, X_df, level, fitted, prediction_intervals, id_col, time_col, target_col)
-   1531     raise ValueError(
-   1532         "You must specify `level` when using `prediction_intervals`"
-   1533     )
-   1534 if self._is_native(df=df):
--> 1535     return super().forecast(
-   1536         df=df,
-   1537         h=h,
-   1538         X_df=X_df,
-   1539         level=level,
-   1540         fitted=fitted,
-   1541         prediction_intervals=prediction_intervals,
-   1542         id_col=id_col,
-   1543         time_col=time_col,
-   1544         target_col=target_col,
-   1545     )
-   1546 assert df is not None
-   1547 engine = make_execution_engine(infer_by=[df])
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:4108, in DataFrame.__getitem__(self, key)
+   4106     if is_iterator(key):
+   4107         key = list(key)
+-> 4108     indexer = self.columns._get_indexer_strict(key, "columns")[1]
+   4110 # take() does not accept boolean indexers
+   4111 if getattr(indexer, "dtype", None) == bool:
 
-File ~\AppData\Roaming\Python\Python312\site-packages\statsforecast\core.py:856, in _StatsForecast.forecast(self, h, df, X_df, level, fitted, prediction_intervals, id_col, time_col, target_col)
-    831 """Memory Efficient predictions.
-    832 
-    833 This method avoids memory burden due from object storage.
-   (...)
-    853     predictions for all fitted `models`.
-    854 """
-    855 self.__dict__.pop("fcst_fitted_values_", None)
---> 856 self._prepare_fit(
-    857     df=df, id_col=id_col, time_col=time_col, target_col=target_col
-    858 )
-    859 self._validate_exog(X_df)
-    860 self._validate_sizes_for_prediction_intervals(prediction_intervals)
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:6200, in Index._get_indexer_strict(self, key, axis_name)
+   6197 else:
+   6198     keyarr, indexer, new_indexer = self._reindex_non_unique(keyarr)
+-> 6200 self._raise_if_missing(keyarr, indexer, axis_name)
+   6202 keyarr = self.take(indexer)
+   6203 if isinstance(key, Index):
+   6204     # GH 42790 - Preserve name from an Index
 
-File ~\AppData\Roaming\Python\Python312\site-packages\statsforecast\core.py:584, in _StatsForecast._prepare_fit(self, df, id_col, time_col, target_col)
-    582 df = ensure_time_dtype(df, time_col)
-    583 validate_freq(df[time_col], self.freq)
---> 584 self.uids, last_times, data, indptr, sort_idxs = ufp.process_df(
-    585     df, id_col, time_col, target_col
-    586 )
-    587 if isinstance(df, pd.DataFrame):
-    588     self.last_dates = pd.Index(last_times, name=time_col)
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:6252, in Index._raise_if_missing(self, key, indexer, axis_name)
+   6249     raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+   6251 not_found = list(ensure_index(key)[missing_mask.nonzero()[0]].unique())
+-> 6252 raise KeyError(f"{not_found} not in index")
 
-File ~\AppData\Roaming\Python\Python312\site-packages\utilsforecast\processing.py:698, in process_df(df, id_col, time_col, target_col)
-    695 last_idxs = indptr[1:] - 1
-    697 # data
---> 698 data = value_cols_to_numpy(df, id_col, time_col, target_col)
-    700 # check if we need to sort
-    701 sort_idxs = maybe_compute_sort_indices(df, id_col, time_col)
-
-File ~\AppData\Roaming\Python\Python312\site-packages\utilsforecast\processing.py:603, in value_cols_to_numpy(df, id_col, time_col, target_col)
-    601 data = to_numpy(df[value_cols])
-    602 if data.dtype not in (np.float32, np.float64):
---> 603     data = data.astype(np.float32)
-    604 return data
-
-ValueError: could not convert string to float: 'Corporate Support Services'
+KeyError: "['unique_id'] not in index"
