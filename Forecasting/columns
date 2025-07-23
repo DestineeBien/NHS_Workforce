@@ -4,22 +4,68 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
-14:23:15 - cmdstanpy - INFO - Chain [1] start processing
-Optimization terminated abnormally. Falling back to Newton.
-14:23:16 - cmdstanpy - INFO - Chain [1] start processing
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[7], line 17
+     15 sf = StatsForecast(models=models, freq="MS")
+     16 # Run rolling test (fit on train, forecast h steps ahead)
+---> 17 fcs = sf.forecast(df=sf_df, h=h)
+     18 # Merge with truth for error calc
+     19 truth = sf_df[["unique_id", "ds", "y"]].iloc[-h:].reset_index(drop=True)
 
- error: subprocess-exited-with-error
-  
-  python setup.py bdist_wheel did not run successfully.
-  exit code: 1
-  
-  [4 lines of output]
-  Warning: MSVC is not supported
-  C:\Users\Destinee.HassanBien\AppData\Local\Temp\pip-install-283034cr\pystan_9399aae615f44574bae71723f958c15f\setup.py:61: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
-    self.version = node.value.s
-  Cython>=0.22 and NumPy are required.
-  [end of output]
-  
-  note: This error originates from a subprocess, and is likely not a problem with pip.
-  ERROR: Failed building wheel for pystan
-ERROR: ERROR: Failed to build installable wheels for some pyproject.toml based projects (pystan)
+File ~\AppData\Roaming\Python\Python312\site-packages\statsforecast\core.py:1535, in StatsForecast.forecast(self, h, df, X_df, level, fitted, prediction_intervals, id_col, time_col, target_col)
+   1531     raise ValueError(
+   1532         "You must specify `level` when using `prediction_intervals`"
+   1533     )
+   1534 if self._is_native(df=df):
+-> 1535     return super().forecast(
+   1536         df=df,
+   1537         h=h,
+   1538         X_df=X_df,
+   1539         level=level,
+   1540         fitted=fitted,
+   1541         prediction_intervals=prediction_intervals,
+   1542         id_col=id_col,
+   1543         time_col=time_col,
+   1544         target_col=target_col,
+   1545     )
+   1546 assert df is not None
+   1547 engine = make_execution_engine(infer_by=[df])
+
+File ~\AppData\Roaming\Python\Python312\site-packages\statsforecast\core.py:856, in _StatsForecast.forecast(self, h, df, X_df, level, fitted, prediction_intervals, id_col, time_col, target_col)
+    831 """Memory Efficient predictions.
+    832 
+    833 This method avoids memory burden due from object storage.
+   (...)
+    853     predictions for all fitted `models`.
+    854 """
+    855 self.__dict__.pop("fcst_fitted_values_", None)
+--> 856 self._prepare_fit(
+    857     df=df, id_col=id_col, time_col=time_col, target_col=target_col
+    858 )
+    859 self._validate_exog(X_df)
+    860 self._validate_sizes_for_prediction_intervals(prediction_intervals)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\statsforecast\core.py:584, in _StatsForecast._prepare_fit(self, df, id_col, time_col, target_col)
+    582 df = ensure_time_dtype(df, time_col)
+    583 validate_freq(df[time_col], self.freq)
+--> 584 self.uids, last_times, data, indptr, sort_idxs = ufp.process_df(
+    585     df, id_col, time_col, target_col
+    586 )
+    587 if isinstance(df, pd.DataFrame):
+    588     self.last_dates = pd.Index(last_times, name=time_col)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\utilsforecast\processing.py:698, in process_df(df, id_col, time_col, target_col)
+    695 last_idxs = indptr[1:] - 1
+    697 # data
+--> 698 data = value_cols_to_numpy(df, id_col, time_col, target_col)
+    700 # check if we need to sort
+    701 sort_idxs = maybe_compute_sort_indices(df, id_col, time_col)
+
+File ~\AppData\Roaming\Python\Python312\site-packages\utilsforecast\processing.py:603, in value_cols_to_numpy(df, id_col, time_col, target_col)
+    601 data = to_numpy(df[value_cols])
+    602 if data.dtype not in (np.float32, np.float64):
+--> 603     data = data.astype(np.float32)
+    604 return data
+
+ValueError: could not convert string to float: 'Corporate Support Services'
