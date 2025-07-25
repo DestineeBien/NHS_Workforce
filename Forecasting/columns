@@ -5,3 +5,244 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
 Valid unique_ids with data in both: {'NHS/Medical Services/Administrative and Clerical/Leavers', 'NHS/SSL Corporate/Additional Clinical Services/Sickness', 'NHS/Neighbourhood Services/Additional Clinical Services', 'NHS/CYP & Families Services/Estates and Ancillary/Sickness', 'NHS/Neighbourhood Services/Allied Health Professionals/Sickness', 'NHS/Surgical Services/Medical and Dental/Leavers', 'NHS/Mental Health and Learning Disabilities/Additional Clinical Services/Sickness', 'NHS/Clinical Support and Cancer Services/Estates and Ancillary/Sickness', 'NHS/Surgical Services/Additional Clinical Services/Hires', 'NHS/Corporate Support Services/Students/Sickness', 'NHS/Mental Health and Learning Disabilities/Medical and Dental', 'NHS/Clinical Support and Cancer Services/Students', 'NHS/Medical Services/Estates and Ancillary', 'NHS/Mental Health and Learning Disabilities/Allied Health Professionals/Sickness', 'NHS/CYP & Families Services/Medical and Dental/Sickness', 'NHS/Corporate Support Services/Nursing and Midwifery Registered/Sickness', 'NHS/Neighbourhood Services/Administrative and Clerical/Sickness', 'NHS/Mental Health and Learning Disabilities/Nursing and Midwifery Registered/Hires', 'NHS/SSL Corporate/Additional Clinical Services', 'NHS/Operational Management/Administrative and Clerical/Hires', 'NHS/CYP & Families Services/Nursing and Midwifery Registered/Hires', 'NHS/Medical Services/Additional Clinical Services/Sickness', 'NHS/Neighbourhood Services/Nursing and Midwifery Registered/Sickness', 'NHS/Neighbourhood Services/Healthcare Scientists', 'NHS/Mental Health and Learning Disabilities/Nursing and Midwifery Registered', 'NHS/Neighbourhood Services/Nursing and Midwifery Registered/Leavers', 'NHS/SSL Corporate/Estates and Ancillary/Leavers', 'NHS/Clinical Support and Cancer Services', 'NHS/SSL Corporate/Healthcare Scientists/Sickness', 'NHS/Surgical Services/Administrative and Clerical/Sickness', 'NHS/CYP & Families Services', 'NHS/Surgical Services/Healthcare Scientists', 'NHS/Medical Services/Additional Clinical Services', 'NHS/Surgical Services/Nursing and Midwifery Registered', 'NHS/CYP & Families Services/Allied Health Professionals/Sickness', 'NHS/Neighbourhood Services/Additional Clinical Services/Hires', 'NHS/Surgical Services/Estates and Ancillary/Leavers', 'NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered/Leavers', 'NHS/CYP & Families Services/Allied Health Professionals/Hires', 'NHS/Mental Health and Learning Disabilities', 'NHS/CYP & Families Services/Nursing and Midwifery Registered/Leavers', 'NHS/Mental Health and Learning Disabilities/Nursing and Midwifery Registered/Leavers', 'NHS/Surgical Services/Estates and Ancillary/Sickness', 'NHS/CYP & Families Services/Students', 'NHS/SSL Corporate', 'NHS/Clinical Support and Cancer Services/Administrative and Clerical/Hires', 'NHS/Medical Services/Add Prof Scientific and Technic/Sickness', 'NHS/Corporate Support Services/Medical and Dental/Leavers', 'NHS/Surgical Services/Administrative and Clerical', 'NHS/Medical Services/Additional Clinical Services/Hires', 'NHS/Operational Management/Administrative and Clerical/Leavers', 'NHS/CYP & Families Services/Nursing and Midwifery Registered/Sickness', 'NHS/Corporate Support Services/Add Prof Scientific and Technic/Sickness', 'NHS/Medical Services/Nursing and Midwifery Registered/Sickness', 'NHS/SSL Corporate/Administrative and Clerical/Sickness', 'NHS/Operational Management/Administrative and Clerical', 'NHS/Surgical Services/Add Prof Scientific and Technic', 'NHS/Corporate Support Services/Add Prof Scientific and Technic/Leavers', 'NHS/Surgical Services/Nursing and Midwifery Registered/Leavers', 'NHS/Surgical Services/Medical and Dental', 'NHS/Mental Health and Learning Disabilities/Estates and Ancillary', 'NHS/Corporate Support Services/Administrative and Clerical/Leavers', 'NHS/Neighbourhood Services/Medical and Dental', 'NHS/Neighbourhood Services/Administrative and Clerical/Hires', 'NHS/Mental Health and Learning Disabilities/Administrative and Clerical', 'NHS/Surgical Services/Healthcare Scientists/Sickness', 'NHS/Medical Services/Students/Sickness', 'NHS/Medical Services/Administrative and Clerical', 'NHS/Medical Services/Healthcare Scientists', 'NHS/Medical Services/Nursing and Midwifery Registered/Hires', 'NHS/Neighbourhood Services/Add Prof Scientific and Technic', 'NHS/CYP & Families Services/Medical and Dental/Leavers', 'NHS/Medical Services/Add Prof Scientific and Technic', 'NHS/Corporate Support Services/Nursing and Midwifery Registered/Leavers', 'NHS/Corporate Support Services/Allied Health Professionals', 'NHS/SSL Corporate/Administrative and Clerical', 'NHS/Surgical Services/Add Prof Scientific and Technic/Leavers', 'NHS/Surgical Services/Nursing and Midwifery Registered/Sickness', 'NHS/Clinical Support and Cancer Services/Healthcare Scientists/Sickness', 'NHS/Surgical Services/Allied Health Professionals/Hires', 'NHS/SSL Corporate/Add Prof Scientific and Technic', 'NHS/Mental Health and Learning Disabilities/Medical and Dental/Leavers', 'NHS/Neighbourhood Services/Allied Health Professionals/Hires', 'NHS/Surgical Services/Nursing and Midwifery Registered/Hires', 'NHS/Corporate Support Services/Additional Clinical Services/Leavers', 'NHS/Medical Services/Additional Clinical Services/Leavers', 'NHS/Surgical Services/Allied Health Professionals', 'NHS/Clinical Support and Cancer Services/Allied Health Professionals', 'NHS/CYP & Families Services/Additional Clinical Services/Sickness', 'NHS/Corporate Support Services/Allied Health Professionals/Leavers', 'NHS/Operational Management/Estates and Ancillary', 'NHS/Neighbourhood Services/Additional Clinical Services/Sickness', 'NHS/Medical Services', 'NHS/Corporate Support Services/Additional Clinical Services/Sickness', 'NHS/Corporate Support Services/Healthcare Scientists/Sickness', 'NHS/Mental Health and Learning Disabilities/Allied Health Professionals/Hires', 'NHS/Operational Management/Medical and Dental', 'NHS/Corporate Support Services/Allied Health Professionals/Hires', 'NHS/SSL Corporate/Estates and Ancillary/Hires', 'NHS/Corporate Support Services/Nursing and Midwifery Registered', 'NHS/Mental Health and Learning Disabilities/Additional Clinical Services/Hires', 'NHS/Surgical Services/Estates and Ancillary', 'NHS/Corporate Support Services/Administrative and Clerical', 'NHS/Clinical Support and Cancer Services/Allied Health Professionals/Sickness', 'NHS/Neighbourhood Services', 'NHS/Medical Services/Medical and Dental', 'NHS/Neighbourhood Services/Administrative and Clerical/Leavers', 'NHS/Operational Management/Estates and Ancillary/Sickness', 'NHS/Medical Services/Allied Health Professionals/Sickness', 'NHS/Surgical Services/Allied Health Professionals/Sickness', 'NHS/Surgical Services/Students', 'NHS/CYP & Families Services/Nursing and Midwifery Registered', 'NHS/Clinical Support and Cancer Services/Students/Sickness', 'NHS/Neighbourhood Services/Administrative and Clerical', 'NHS/Surgical Services/Medical and Dental/Sickness', 'NHS/CYP & Families Services/Administrative and Clerical/Sickness', 'NHS/Surgical Services/Medical and Dental/Hires', 'NHS/Surgical Services', 'NHS/Mental Health and Learning Disabilities/Nursing and Midwifery Registered/Sickness', 'NHS/Operational Management/Additional Clinical Services/Leavers', 'NHS/SSL Corporate/Healthcare Scientists', 'NHS/CYP & Families Services/Estates and Ancillary', 'NHS/Neighbourhood Services/Medical and Dental/Sickness', 'NHS/Surgical Services/Administrative and Clerical/Hires', 'NHS/Surgical Services/Add Prof Scientific and Technic/Hires', 'NHS/Neighbourhood Services/Allied Health Professionals', 'NHS/Corporate Support Services/Estates and Ancillary/Hires', 'NHS/Corporate Support Services/Healthcare Scientists', 'NHS/Mental Health and Learning Disabilities/Additional Clinical Services', 'NHS/Surgical Services/Additional Clinical Services', 'NHS/Neighbourhood Services/Add Prof Scientific and Technic/Sickness', 'NHS/Mental Health and Learning Disabilities/Estates and Ancillary/Sickness', 'NHS/Clinical Support and Cancer Services/Add Prof Scientific and Technic/Hires', 'NHS/CYP & Families Services/Add Prof Scientific and Technic/Sickness', 'NHS/Neighbourhood Services/Medical and Dental/Hires', 'NHS/SSL Corporate/Add Prof Scientific and Technic/Sickness', 'NHS/Medical Services/Nursing and Midwifery Registered', 'NHS/SSL Corporate/Estates and Ancillary/Sickness', 'NHS/Clinical Support and Cancer Services/Healthcare Scientists', 'NHS/Clinical Support and Cancer Services/Additional Clinical Services/Sickness', 'NHS/Clinical Support and Cancer Services/Additional Clinical Services', 'NHS/Neighbourhood Services/Medical and Dental/Leavers', 'NHS/Corporate Support Services/Medical and Dental/Sickness', 'NHS/Neighbourhood Services/Additional Clinical Services/Leavers', 'NHS/Clinical Support and Cancer Services/Additional Clinical Services/Leavers', 'NHS/Clinical Support and Cancer Services/Medical and Dental/Sickness', 'NHS/Mental Health and Learning Disabilities/Administrative and Clerical/Sickness', 'NHS/Clinical Support and Cancer Services/Medical and Dental/Leavers', 'NHS/Operational Management/Administrative and Clerical/Sickness', 'NHS/Medical Services/Allied Health Professionals', 'NHS/SSL Corporate/Estates and Ancillary', 'NHS/Clinical Support and Cancer Services/Allied Health Professionals/Hires', 'NHS/Operational Management/Medical and Dental/Sickness', 'NHS', 'NHS/Corporate Support Services', 'NHS/Clinical Support and Cancer Services/Add Prof Scientific and Technic', 'NHS/Medical Services/Medical and Dental/Sickness', 'NHS/Neighbourhood Services/Allied Health Professionals/Leavers', 'NHS/Neighbourhood Services/Estates and Ancillary/Sickness', 'NHS/Neighbourhood Services/Healthcare Scientists/Sickness', 'NHS/CYP & Families Services/Medical and Dental', 'NHS/Operational Management/Nursing and Midwifery Registered/Sickness', 'NHS/Operational Management/Additional Clinical Services', 'NHS/Medical Services/Administrative and Clerical/Sickness', 'NHS/Surgical Services/Additional Clinical Services/Sickness', 'NHS/Mental Health and Learning Disabilities/Administrative and Clerical/Leavers', 'NHS/CYP & Families Services/Administrative and Clerical/Leavers', 'NHS/Clinical Support and Cancer Services/Administrative and Clerical/Leavers', 'NHS/CYP & Families Services/Additional Clinical Services/Leavers', 'NHS/Mental Health and Learning Disabilities/Medical and Dental/Sickness', 'NHS/Corporate Support Services/Allied Health Professionals/Sickness', 'NHS/Clinical Support and Cancer Services/Add Prof Scientific and Technic/Leavers', 'NHS/Medical Services/Students', 'NHS/CYP & Families Services/Allied Health Professionals', 'NHS/Surgical Services/Allied Health Professionals/Leavers', 'NHS/Corporate Support Services/Estates and Ancillary', 'NHS/Corporate Support Services/Estates and Ancillary/Leavers', 'NHS/CYP & Families Services/Students/Sickness', 'NHS/Corporate Support Services/Additional Clinical Services/Hires', 'NHS/Mental Health and Learning Disabilities/Estates and Ancillary/Leavers', 'NHS/Corporate Support Services/Students', 'NHS/Surgical Services/Students/Sickness', 'NHS/CYP & Families Services/Administrative and Clerical', 'NHS/CYP & Families Services/Add Prof Scientific and Technic/Hires', 'NHS/Corporate Support Services/Administrative and Clerical/Hires', 'NHS/Operational Management', 'NHS/Mental Health and Learning Disabilities/Add Prof Scientific and Technic/Leavers', 'NHS/Surgical Services/Estates and Ancillary/Hires', 'NHS/Corporate Support Services/Add Prof Scientific and Technic/Hires', 'NHS/Neighbourhood Services/Nursing and Midwifery Registered/Hires', 'NHS/Clinical Support and Cancer Services/Allied Health Professionals/Leavers', 'NHS/CYP & Families Services/Administrative and Clerical/Hires', 'NHS/Clinical Support and Cancer Services/Additional Clinical Services/Hires', 'NHS/Medical Services/Nursing and Midwifery Registered/Leavers', 'NHS/CYP & Families Services/Allied Health Professionals/Leavers', 'NHS/Mental Health and Learning Disabilities/Add Prof Scientific and Technic/Sickness', 'NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered/Sickness', 'NHS/Neighbourhood Services/Estates and Ancillary', 'NHS/CYP & Families Services/Add Prof Scientific and Technic/Leavers', 'NHS/Clinical Support and Cancer Services/Administrative and Clerical/Sickness', 'NHS/Corporate Support Services/Medical and Dental', 'NHS/Operational Management/Nursing and Midwifery Registered', 'NHS/Corporate Support Services/Estates and Ancillary/Sickness', 'NHS/Mental Health and Learning Disabilities/Add Prof Scientific and Technic', 'NHS/Medical Services/Medical and Dental/Hires', 'NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered/Hires', 'NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered', 'NHS/Medical Services/Medical and Dental/Leavers', 'NHS/Neighbourhood Services/Nursing and Midwifery Registered', 'NHS/CYP & Families Services/Additional Clinical Services', 'NHS/CYP & Families Services/Add Prof Scientific and Technic', 'NHS/Surgical Services/Students/Hires', 'NHS/Medical Services/Estates and Ancillary/Sickness', 'NHS/Clinical Support and Cancer Services/Add Prof Scientific and Technic/Sickness', 'NHS/Mental Health and Learning Disabilities/Allied Health Professionals', 'NHS/Surgical Services/Administrative and Clerical/Leavers', 'NHS/Mental Health and Learning Disabilities/Add Prof Scientific and Technic/Hires', 'NHS/Mental Health and Learning Disabilities/Allied Health Professionals/Leavers', 'NHS/CYP & Families Services/Additional Clinical Services/Hires', 'NHS/Surgical Services/Add Prof Scientific and Technic/Sickness', 'NHS/Mental Health and Learning Disabilities/Estates and Ancillary/Hires', 'NHS/Mental Health and Learning Disabilities/Additional Clinical Services/Leavers', 'NHS/Surgical Services/Additional Clinical Services/Leavers', 'NHS/Corporate Support Services/Additional Clinical Services', 'NHS/Medical Services/Healthcare Scientists/Sickness', 'NHS/Medical Services/Students/Hires', 'NHS/SSL Corporate/Administrative and Clerical/Leavers', 'NHS/Corporate Support Services/Medical and Dental/Hires', 'NHS/Clinical Support and Cancer Services/Medical and Dental/Hires', 'NHS/Mental Health and Learning Disabilities/Medical and Dental/Hires', 'NHS/Corporate Support Services/Add Prof Scientific and Technic', 'NHS/Corporate Support Services/Nursing and Midwifery Registered/Hires', 'NHS/Mental Health and Learning Disabilities/Administrative and Clerical/Hires', 'NHS/Clinical Support and Cancer Services/Medical and Dental', 'NHS/CYP & Families Services/Medical and Dental/Hires', 'NHS/Clinical Support and Cancer Services/Estates and Ancillary', 'NHS/Clinical Support and Cancer Services/Administrative and Clerical', 'NHS/Corporate Support Services/Administrative and Clerical/Sickness', 'NHS/Operational Management/Additional Clinical Services/Sickness', 'NHS/Medical Services/Administrative and Clerical/Hires'}
+
+NHS/Medical Services/Administrative and Clerical/Leavers: observed=48, forecast=13
+NHS/SSL Corporate/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Additional Clinical Services: observed=48, forecast=13
+NHS/CYP & Families Services/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Allied Health Professionals/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Medical and Dental/Leavers: observed=47, forecast=13
+NHS/Mental Health and Learning Disabilities/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Additional Clinical Services/Hires: observed=48, forecast=13
+NHS/Corporate Support Services/Students/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Medical and Dental: observed=45, forecast=13
+NHS/Clinical Support and Cancer Services/Students: observed=24, forecast=13
+NHS/Medical Services/Estates and Ancillary: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Allied Health Professionals/Sickness: observed=24, forecast=13
+NHS/CYP & Families Services/Medical and Dental/Sickness: observed=24, forecast=13
+NHS/Corporate Support Services/Nursing and Midwifery Registered/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Nursing and Midwifery Registered/Hires: observed=43, forecast=13
+NHS/SSL Corporate/Additional Clinical Services: observed=24, forecast=13
+NHS/Operational Management/Administrative and Clerical/Hires: observed=37, forecast=13
+NHS/CYP & Families Services/Nursing and Midwifery Registered/Hires: observed=45, forecast=13
+NHS/Medical Services/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Nursing and Midwifery Registered/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Healthcare Scientists: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Nursing and Midwifery Registered: observed=47, forecast=13
+NHS/Neighbourhood Services/Nursing and Midwifery Registered/Leavers: observed=48, forecast=13
+NHS/SSL Corporate/Estates and Ancillary/Leavers: observed=48, forecast=13
+NHS/Clinical Support and Cancer Services: observed=48, forecast=13
+NHS/SSL Corporate/Healthcare Scientists/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/CYP & Families Services: observed=48, forecast=13
+NHS/Surgical Services/Healthcare Scientists: observed=24, forecast=13
+NHS/Medical Services/Additional Clinical Services: observed=48, forecast=13
+NHS/Surgical Services/Nursing and Midwifery Registered: observed=48, forecast=13
+NHS/CYP & Families Services/Allied Health Professionals/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Additional Clinical Services/Hires: observed=48, forecast=13
+NHS/Surgical Services/Estates and Ancillary/Leavers: observed=28, forecast=13
+NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered/Leavers: observed=33, forecast=13
+NHS/CYP & Families Services/Allied Health Professionals/Hires: observed=31, forecast=13
+NHS/Mental Health and Learning Disabilities: observed=48, forecast=13
+NHS/CYP & Families Services/Nursing and Midwifery Registered/Leavers: observed=46, forecast=13
+NHS/Mental Health and Learning Disabilities/Nursing and Midwifery Registered/Leavers: observed=44, forecast=13
+NHS/Surgical Services/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/CYP & Families Services/Students: observed=21, forecast=13
+NHS/SSL Corporate: observed=48, forecast=13
+NHS/Clinical Support and Cancer Services/Administrative and Clerical/Hires: observed=47, forecast=13
+NHS/Medical Services/Add Prof Scientific and Technic/Sickness: observed=24, forecast=13
+NHS/Corporate Support Services/Medical and Dental/Leavers: observed=40, forecast=13
+NHS/Surgical Services/Administrative and Clerical: observed=48, forecast=13
+NHS/Medical Services/Additional Clinical Services/Hires: observed=48, forecast=13
+NHS/Operational Management/Administrative and Clerical/Leavers: observed=40, forecast=13
+NHS/CYP & Families Services/Nursing and Midwifery Registered/Sickness: observed=24, forecast=13
+NHS/Corporate Support Services/Add Prof Scientific and Technic/Sickness: observed=24, forecast=13
+NHS/Medical Services/Nursing and Midwifery Registered/Sickness: observed=24, forecast=13
+NHS/SSL Corporate/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/Operational Management/Administrative and Clerical: observed=48, forecast=13
+NHS/Surgical Services/Add Prof Scientific and Technic: observed=46, forecast=13
+NHS/Corporate Support Services/Add Prof Scientific and Technic/Leavers: observed=39, forecast=13
+NHS/Surgical Services/Nursing and Midwifery Registered/Leavers: observed=47, forecast=13
+NHS/Surgical Services/Medical and Dental: observed=48, forecast=13
+NHS/Mental Health and Learning Disabilities/Estates and Ancillary: observed=47, forecast=13
+NHS/Corporate Support Services/Administrative and Clerical/Leavers: observed=48, forecast=13
+NHS/Neighbourhood Services/Medical and Dental: observed=46, forecast=13
+NHS/Neighbourhood Services/Administrative and Clerical/Hires: observed=46, forecast=13
+NHS/Mental Health and Learning Disabilities/Administrative and Clerical: observed=47, forecast=13
+NHS/Surgical Services/Healthcare Scientists/Sickness: observed=24, forecast=13
+NHS/Medical Services/Students/Sickness: observed=21, forecast=13
+NHS/Medical Services/Administrative and Clerical: observed=48, forecast=13
+NHS/Medical Services/Healthcare Scientists: observed=24, forecast=13
+NHS/Medical Services/Nursing and Midwifery Registered/Hires: observed=47, forecast=13
+NHS/Neighbourhood Services/Add Prof Scientific and Technic: observed=24, forecast=13
+NHS/CYP & Families Services/Medical and Dental/Leavers: observed=44, forecast=13
+NHS/Medical Services/Add Prof Scientific and Technic: observed=24, forecast=13
+NHS/Corporate Support Services/Nursing and Midwifery Registered/Leavers: observed=48, forecast=13
+NHS/Corporate Support Services/Allied Health Professionals: observed=48, forecast=13
+NHS/SSL Corporate/Administrative and Clerical: observed=36, forecast=13
+NHS/Surgical Services/Add Prof Scientific and Technic/Leavers: observed=32, forecast=13
+NHS/Surgical Services/Nursing and Midwifery Registered/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Healthcare Scientists/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Allied Health Professionals/Hires: observed=25, forecast=13
+NHS/SSL Corporate/Add Prof Scientific and Technic: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Medical and Dental/Leavers: observed=31, forecast=13
+NHS/Neighbourhood Services/Allied Health Professionals/Hires: observed=39, forecast=13
+NHS/Surgical Services/Nursing and Midwifery Registered/Hires: observed=48, forecast=13
+NHS/Corporate Support Services/Additional Clinical Services/Leavers: observed=48, forecast=13
+NHS/Medical Services/Additional Clinical Services/Leavers: observed=48, forecast=13
+NHS/Surgical Services/Allied Health Professionals: observed=41, forecast=13
+NHS/Clinical Support and Cancer Services/Allied Health Professionals: observed=48, forecast=13
+NHS/CYP & Families Services/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Corporate Support Services/Allied Health Professionals/Leavers: observed=45, forecast=13
+NHS/Operational Management/Estates and Ancillary: observed=24, forecast=13
+NHS/Neighbourhood Services/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Medical Services: observed=48, forecast=13
+NHS/Corporate Support Services/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Corporate Support Services/Healthcare Scientists/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Allied Health Professionals/Hires: observed=27, forecast=13
+NHS/Operational Management/Medical and Dental: observed=24, forecast=13
+NHS/Corporate Support Services/Allied Health Professionals/Hires: observed=40, forecast=13
+NHS/SSL Corporate/Estates and Ancillary/Hires: observed=48, forecast=13
+NHS/Corporate Support Services/Nursing and Midwifery Registered: observed=48, forecast=13
+NHS/Mental Health and Learning Disabilities/Additional Clinical Services/Hires: observed=47, forecast=13
+NHS/Surgical Services/Estates and Ancillary: observed=47, forecast=13
+NHS/Corporate Support Services/Administrative and Clerical: observed=48, forecast=13
+NHS/Clinical Support and Cancer Services/Allied Health Professionals/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services: observed=48, forecast=13
+NHS/Medical Services/Medical and Dental: observed=48, forecast=13
+NHS/Neighbourhood Services/Administrative and Clerical/Leavers: observed=47, forecast=13
+NHS/Operational Management/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/Medical Services/Allied Health Professionals/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Allied Health Professionals/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Students: observed=43, forecast=13
+NHS/CYP & Families Services/Nursing and Midwifery Registered: observed=47, forecast=13
+NHS/Clinical Support and Cancer Services/Students/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Administrative and Clerical: observed=48, forecast=13
+NHS/Surgical Services/Medical and Dental/Sickness: observed=24, forecast=13
+NHS/CYP & Families Services/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Medical and Dental/Hires: observed=48, forecast=13
+NHS/Surgical Services: observed=48, forecast=13
+NHS/Mental Health and Learning Disabilities/Nursing and Midwifery Registered/Sickness: observed=24, forecast=13
+NHS/Operational Management/Additional Clinical Services/Leavers: observed=25, forecast=13
+NHS/SSL Corporate/Healthcare Scientists: observed=24, forecast=13
+NHS/CYP & Families Services/Estates and Ancillary: observed=24, forecast=13
+NHS/Neighbourhood Services/Medical and Dental/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Administrative and Clerical/Hires: observed=48, forecast=13
+NHS/Surgical Services/Add Prof Scientific and Technic/Hires: observed=23, forecast=13
+NHS/Neighbourhood Services/Allied Health Professionals: observed=47, forecast=13
+NHS/Corporate Support Services/Estates and Ancillary/Hires: observed=48, forecast=13
+NHS/Corporate Support Services/Healthcare Scientists: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Additional Clinical Services: observed=48, forecast=13
+NHS/Surgical Services/Additional Clinical Services: observed=48, forecast=13
+NHS/Neighbourhood Services/Add Prof Scientific and Technic/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Add Prof Scientific and Technic/Hires: observed=35, forecast=13
+NHS/CYP & Families Services/Add Prof Scientific and Technic/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Medical and Dental/Hires: observed=23, forecast=13
+NHS/SSL Corporate/Add Prof Scientific and Technic/Sickness: observed=24, forecast=13
+NHS/Medical Services/Nursing and Midwifery Registered: observed=48, forecast=13
+NHS/SSL Corporate/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Healthcare Scientists: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Additional Clinical Services: observed=48, forecast=13
+NHS/Neighbourhood Services/Medical and Dental/Leavers: observed=34, forecast=13
+NHS/Corporate Support Services/Medical and Dental/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Additional Clinical Services/Leavers: observed=48, forecast=13
+NHS/Clinical Support and Cancer Services/Additional Clinical Services/Leavers: observed=46, forecast=13
+NHS/Clinical Support and Cancer Services/Medical and Dental/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Medical and Dental/Leavers: observed=34, forecast=13
+NHS/Operational Management/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/Medical Services/Allied Health Professionals: observed=24, forecast=13
+NHS/SSL Corporate/Estates and Ancillary: observed=48, forecast=13
+NHS/Clinical Support and Cancer Services/Allied Health Professionals/Hires: observed=48, forecast=13
+NHS/Operational Management/Medical and Dental/Sickness: observed=24, forecast=13
+NHS: observed=48, forecast=13
+NHS/Corporate Support Services: observed=48, forecast=13
+NHS/Clinical Support and Cancer Services/Add Prof Scientific and Technic: observed=45, forecast=13
+NHS/Medical Services/Medical and Dental/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Allied Health Professionals/Leavers: observed=40, forecast=13
+NHS/Neighbourhood Services/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Healthcare Scientists/Sickness: observed=24, forecast=13
+NHS/CYP & Families Services/Medical and Dental: observed=48, forecast=13
+NHS/Operational Management/Nursing and Midwifery Registered/Sickness: observed=24, forecast=13
+NHS/Operational Management/Additional Clinical Services: observed=34, forecast=13
+NHS/Medical Services/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/Surgical Services/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Administrative and Clerical/Leavers: observed=40, forecast=13
+NHS/CYP & Families Services/Administrative and Clerical/Leavers: observed=44, forecast=13
+NHS/Clinical Support and Cancer Services/Administrative and Clerical/Leavers: observed=48, forecast=13
+NHS/CYP & Families Services/Additional Clinical Services/Leavers: observed=45, forecast=13
+NHS/Mental Health and Learning Disabilities/Medical and Dental/Sickness: observed=24, forecast=13
+NHS/Corporate Support Services/Allied Health Professionals/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Add Prof Scientific and Technic/Leavers: observed=36, forecast=13
+NHS/Medical Services/Students: observed=41, forecast=13
+NHS/CYP & Families Services/Allied Health Professionals: observed=44, forecast=13
+NHS/Surgical Services/Allied Health Professionals/Leavers: observed=30, forecast=13
+NHS/Corporate Support Services/Estates and Ancillary: observed=48, forecast=13
+NHS/Corporate Support Services/Estates and Ancillary/Leavers: observed=48, forecast=13
+NHS/CYP & Families Services/Students/Sickness: observed=21, forecast=13
+NHS/Corporate Support Services/Additional Clinical Services/Hires: observed=48, forecast=13
+NHS/Mental Health and Learning Disabilities/Estates and Ancillary/Leavers: observed=21, forecast=13
+NHS/Corporate Support Services/Students: observed=24, forecast=13
+NHS/Surgical Services/Students/Sickness: observed=23, forecast=13
+NHS/CYP & Families Services/Administrative and Clerical: observed=47, forecast=13
+NHS/CYP & Families Services/Add Prof Scientific and Technic/Hires: observed=32, forecast=13
+NHS/Corporate Support Services/Administrative and Clerical/Hires: observed=48, forecast=13
+NHS/Operational Management: observed=48, forecast=13
+NHS/Mental Health and Learning Disabilities/Add Prof Scientific and Technic/Leavers: observed=42, forecast=13
+NHS/Surgical Services/Estates and Ancillary/Hires: observed=27, forecast=13
+NHS/Corporate Support Services/Add Prof Scientific and Technic/Hires: observed=37, forecast=13
+NHS/Neighbourhood Services/Nursing and Midwifery Registered/Hires: observed=48, forecast=13
+NHS/Clinical Support and Cancer Services/Allied Health Professionals/Leavers: observed=48, forecast=13
+NHS/CYP & Families Services/Administrative and Clerical/Hires: observed=46, forecast=13
+NHS/Clinical Support and Cancer Services/Additional Clinical Services/Hires: observed=48, forecast=13
+NHS/Medical Services/Nursing and Midwifery Registered/Leavers: observed=48, forecast=13
+NHS/CYP & Families Services/Allied Health Professionals/Leavers: observed=31, forecast=13
+NHS/Mental Health and Learning Disabilities/Add Prof Scientific and Technic/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered/Sickness: observed=24, forecast=13
+NHS/Neighbourhood Services/Estates and Ancillary: observed=24, forecast=13
+NHS/CYP & Families Services/Add Prof Scientific and Technic/Leavers: observed=30, forecast=13
+NHS/Clinical Support and Cancer Services/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/Corporate Support Services/Medical and Dental: observed=48, forecast=13
+NHS/Operational Management/Nursing and Midwifery Registered: observed=24, forecast=13
+NHS/Corporate Support Services/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Add Prof Scientific and Technic: observed=47, forecast=13
+NHS/Medical Services/Medical and Dental/Hires: observed=47, forecast=13
+NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered/Hires: observed=22, forecast=13
+NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered: observed=48, forecast=13
+NHS/Medical Services/Medical and Dental/Leavers: observed=47, forecast=13
+NHS/Neighbourhood Services/Nursing and Midwifery Registered: observed=48, forecast=13
+NHS/CYP & Families Services/Additional Clinical Services: observed=48, forecast=13
+NHS/CYP & Families Services/Add Prof Scientific and Technic: observed=43, forecast=13
+NHS/Surgical Services/Students/Hires: observed=30, forecast=13
+NHS/Medical Services/Estates and Ancillary/Sickness: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Add Prof Scientific and Technic/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Allied Health Professionals: observed=42, forecast=13
+NHS/Surgical Services/Administrative and Clerical/Leavers: observed=48, forecast=13
+NHS/Mental Health and Learning Disabilities/Add Prof Scientific and Technic/Hires: observed=42, forecast=13
+NHS/Mental Health and Learning Disabilities/Allied Health Professionals/Leavers: observed=23, forecast=13
+NHS/CYP & Families Services/Additional Clinical Services/Hires: observed=46, forecast=13
+NHS/Surgical Services/Add Prof Scientific and Technic/Sickness: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Estates and Ancillary/Hires: observed=24, forecast=13
+NHS/Mental Health and Learning Disabilities/Additional Clinical Services/Leavers: observed=46, forecast=13
+NHS/Surgical Services/Additional Clinical Services/Leavers: observed=48, forecast=13
+NHS/Corporate Support Services/Additional Clinical Services: observed=48, forecast=13
+NHS/Medical Services/Healthcare Scientists/Sickness: observed=24, forecast=13
+NHS/Medical Services/Students/Hires: observed=30, forecast=13
+NHS/SSL Corporate/Administrative and Clerical/Leavers: observed=17, forecast=13
+NHS/Corporate Support Services/Medical and Dental/Hires: observed=47, forecast=13
+NHS/Clinical Support and Cancer Services/Medical and Dental/Hires: observed=35, forecast=13
+NHS/Mental Health and Learning Disabilities/Medical and Dental/Hires: observed=28, forecast=13
+NHS/Corporate Support Services/Add Prof Scientific and Technic: observed=48, forecast=13
+NHS/Corporate Support Services/Nursing and Midwifery Registered/Hires: observed=48, forecast=13
+NHS/Mental Health and Learning Disabilities/Administrative and Clerical/Hires: observed=41, forecast=13
+NHS/Clinical Support and Cancer Services/Medical and Dental: observed=46, forecast=13
+NHS/CYP & Families Services/Medical and Dental/Hires: observed=46, forecast=13
+NHS/Clinical Support and Cancer Services/Estates and Ancillary: observed=24, forecast=13
+NHS/Clinical Support and Cancer Services/Administrative and Clerical: observed=48, forecast=13
+NHS/Corporate Support Services/Administrative and Clerical/Sickness: observed=24, forecast=13
+NHS/Operational Management/Additional Clinical Services/Sickness: observed=24, forecast=13
+NHS/Medical Services/Administrative and Clerical/Hires: observed=43, forecast=13
