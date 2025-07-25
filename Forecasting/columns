@@ -11,12 +11,50 @@ C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hier
 C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\core.py:286: SyntaxWarning: invalid escape sequence '\m'
   """Hierarchical Reconciliation Method.
 ---------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-Cell In[14], line 3
-      1 group_cols = ["service group", "staff group", "metric"]
-      2 count = all_agg.groupby(group_cols).size()
-----> 3 valid_groups = set(counts[counts >= 24].index)
-      4 all_agg_hier = all_agg.set_index(group_cols)
-      5 all_agg_hier = all_agg_heir.iloc[all_agg_hier.index.isin(valid_groups)].reset_index()
+KeyError                                  Traceback (most recent call last)
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3805, in Index.get_loc(self, key)
+   3804 try:
+-> 3805     return self._engine.get_loc(casted_key)
+   3806 except KeyError as err:
 
-NameError: name 'counts' is not defined
+File index.pyx:167, in pandas._libs.index.IndexEngine.get_loc()
+
+File index.pyx:196, in pandas._libs.index.IndexEngine.get_loc()
+
+File pandas\\_libs\\hashtable_class_helper.pxi:7081, in pandas._libs.hashtable.PyObjectHashTable.get_item()
+
+File pandas\\_libs\\hashtable_class_helper.pxi:7089, in pandas._libs.hashtable.PyObjectHashTable.get_item()
+
+KeyError: 'Base'
+
+The above exception was the direct cause of the following exception:
+
+KeyError                                  Traceback (most recent call last)
+Cell In[34], line 5
+      3 plt.figure(figsize=(10, 4))
+      4 plt.plot(Y_df[Y_df['unique_id']==uid]['ds'], Y_df[Y_df['unique_id']==uid]['y'], label='Observed')
+----> 5 plt.plot(Y_rec_df[Y_rec_df['unique_id']==uid]['ds'], Y_rec_df[Y_rec_df['unique_id']==uid]['Base'], label='Naive Forecast')
+      6 plt.plot(Y_rec_df[Y_rec_df['unique_id']==uid]['ds'], Y_rec_df[Y_rec_df['unique_id']==uid]['BottomUp'], label='BottomUp')
+      7 plt.xlabel("Month")
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:4102, in DataFrame.__getitem__(self, key)
+   4100 if self.columns.nlevels > 1:
+   4101     return self._getitem_multilevel(key)
+-> 4102 indexer = self.columns.get_loc(key)
+   4103 if is_integer(indexer):
+   4104     indexer = [indexer]
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3812, in Index.get_loc(self, key)
+   3807     if isinstance(casted_key, slice) or (
+   3808         isinstance(casted_key, abc.Iterable)
+   3809         and any(isinstance(x, slice) for x in casted_key)
+   3810     ):
+   3811         raise InvalidIndexError(key)
+-> 3812     raise KeyError(key) from err
+   3813 except TypeError:
+   3814     # If we have a listlike key, _check_indexing_error will raise
+   3815     #  InvalidIndexError. Otherwise we fall through and re-raise
+   3816     #  the TypeError.
+   3817     self._check_indexing_error(key)
+
+KeyError: 'Base'
