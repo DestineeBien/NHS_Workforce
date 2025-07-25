@@ -4,6 +4,10 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
+Cell In[28], line 1
+    out_path = os.path.join(base_dir, f"nhs_obs_forecast_{uid.replace('\',
+                                                                      ^
+SyntaxError: unterminated string literal (detected at line 1)
 ---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
 File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3805, in Index.get_loc(self, key)
