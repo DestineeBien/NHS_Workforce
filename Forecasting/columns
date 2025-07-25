@@ -4,35 +4,51 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
-uid = "NHS/Medical Services/Administrative and Clerical/Leavers"
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3805, in Index.get_loc(self, key)
+   3804 try:
+-> 3805     return self._engine.get_loc(casted_key)
+   3806 except KeyError as err:
 
-plt.figure(figsize=(12, 5))
+File index.pyx:167, in pandas._libs.index.IndexEngine.get_loc()
 
-plt.plot(Y_df[Y_df['unique_id'] == uid]['ds'],
-         Y_df[Y_df['unique_id'] == uid]['y'],
-          label='Observed', color='black')
+File index.pyx:196, in pandas._libs.index.IndexEngine.get_loc()
 
-#Forecasts
-plt.plot(Y_rec_df[Y_rec_df['unique_id'] == uid]['ds'],
-         Y_rec_df[Y_rec_df['unique_id'] == uid]['Naive'],
-          label='Naive (Base)', color='blue')
+File pandas\\_libs\\hashtable_class_helper.pxi:7081, in pandas._libs.hashtable.PyObjectHashTable.get_item()
 
-plt.plot(Y_rec_df[Y_rec_df['unique_id'] == uid]['ds'],
-         Y_rec_df[Y_rec_df['unique_id'] == uid]['Naive/BottomUp'],
-          label='Naive BottomUp', color='orange')
+File pandas\\_libs\\hashtable_class_helper.pxi:7089, in pandas._libs.hashtable.PyObjectHashTable.get_item()
 
-plt.plot(Y_rec_df[Y_rec_df['unique_id'] == uid]['ds'],
-         Y_rec_df[Y_rec_df['unique_id'] == uid]['Naive/MinTrace_method-ols'],
-          label='Naive MinT-OLS', color='red')
+KeyError: 'Naive/MinTrance_method-mint_shrink'
 
-plt.plot(Y_rec_df[Y_rec_df['unique_id'] == uid]['ds'],
-         Y_rec_df[Y_rec_df['unique_id'] == uid]['Naive/MinTrace_method-mint_shrink'],
-          label='Naive MinT-Shrink', color='green')
+The above exception was the direct cause of the following exception:
 
-plt.xlabel("Month")
-plt.ylabel(" Workforce Count")
-plt.title(f"Observed vs. Hierarchical Forecasts: {uid}")
-plt.axvline(Y_df[Y_df['unique_id']==uid]['ds'].max(), color='grey', ls='--', alpha=0.6)
-plt.legend()
-plt.tight_layout()
-plt.show()
+KeyError                                  Traceback (most recent call last)
+Cell In[20], line 6
+      4 plt.plot(merged['ds'], merged['Naive/BottomUp'], label='BottomUp', color='orange')
+      5 plt.plot(merged['ds'], merged['Naive/MinTrace_method-ols'], label='MinT-OLS', color='red')
+----> 6 plt.plot(merged['ds'], merged['Naive/MinTrance_method-mint_shrink'], label='MinT-shrink', color='green')
+      7 if split_date is not None:
+      8     plt.axvline(split_date, color='grey', ls='--', alpha=0.7, label='Forecast Start')
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:4102, in DataFrame.__getitem__(self, key)
+   4100 if self.columns.nlevels > 1:
+   4101     return self._getitem_multilevel(key)
+-> 4102 indexer = self.columns.get_loc(key)
+   4103 if is_integer(indexer):
+   4104     indexer = [indexer]
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3812, in Index.get_loc(self, key)
+   3807     if isinstance(casted_key, slice) or (
+   3808         isinstance(casted_key, abc.Iterable)
+   3809         and any(isinstance(x, slice) for x in casted_key)
+   3810     ):
+   3811         raise InvalidIndexError(key)
+-> 3812     raise KeyError(key) from err
+   3813 except TypeError:
+   3814     # If we have a listlike key, _check_indexing_error will raise
+   3815     #  InvalidIndexError. Otherwise we fall through and re-raise
+   3816     #  the TypeError.
+   3817     self._check_indexing_error(key)
+
+KeyError: 'Naive/MinTrance_method-mint_shrink'
