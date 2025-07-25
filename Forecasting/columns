@@ -4,33 +4,55 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\core.py:55: SyntaxWarning: invalid escape sequence '\h'
+  """
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\core.py:83: SyntaxWarning: invalid escape sequence '\d'
+  level_cols = re.findall("[\d]+[.,\d]+|[\d]*[.][\d]+|[\d]+", pi_col)
+C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\core.py:286: SyntaxWarning: invalid escape sequence '\m'
+  """Hierarchical Reconciliation Method.
 ---------------------------------------------------------------------------
-KeyError                                  Traceback (most recent call last)
-Cell In[40], line 3
-      1 sf_df = sample_df.rename(columns={'month': 'ds', 'count': 'y'})
-      2 [['ds', 'y']].copy()
-----> 3 sf_df = sf_df[["unique_id", "ds", "y"]]
-      5 h = min(12, len(sf_df)//5)
-      6 train = sf_df.iloc[:-h]
+ValueError                                Traceback (most recent call last)
+Cell In[9], line 3
+      1 reconcilers = [BottomUp(), MinTrace(method="ols"), MinTrace(method="mint_shrink")]
+      2 hrec = HierarchicalReconciliation(reconcilers=reconcilers)
+----> 3 Y_rec_df = hrec.reconcile(
+      4     Y_hat_df=Y_hat_df,
+      5     Y_df=Y_fitted_df,
+      6     S=S_df,
+      7     tags=tags
+      8 )
 
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:4108, in DataFrame.__getitem__(self, key)
-   4106     if is_iterator(key):
-   4107         key = list(key)
--> 4108     indexer = self.columns._get_indexer_strict(key, "columns")[1]
-   4110 # take() does not accept boolean indexers
-   4111 if getattr(indexer, "dtype", None) == bool:
+File ~\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\core.py:328, in HierarchicalReconciliation.reconcile(self, Y_hat_df, S, tags, Y_df, level, intervals_method, num_samples, seed, is_balanced, id_col, time_col, target_col)
+    325     Y_nw = None
+    327 # Check input's validity and sort dataframes
+--> 328 Y_hat_nw, S_nw, Y_nw, self.model_names = self._prepare_fit(
+    329     Y_hat_nw=Y_hat_nw,
+    330     S_nw=S_nw,
+    331     Y_nw=Y_nw,
+    332     tags=tags,
+    333     level=level,
+    334     intervals_method=intervals_method,
+    335     id_col=id_col,
+    336     time_col=time_col,
+    337     target_col=target_col,
+    338 )
+    340 # Initialize reconciler arguments
+    341 reconciler_args = dict(
+    342     idx_bottom=np.arange(len(S_nw))[-S_nw.shape[1] :],
+    343     tags={
+   (...)
+    350     },
+    351 )
 
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:6200, in Index._get_indexer_strict(self, key, axis_name)
-   6197 else:
-   6198     keyarr, indexer, new_indexer = self._reindex_non_unique(keyarr)
--> 6200 self._raise_if_missing(keyarr, indexer, axis_name)
-   6202 keyarr = self.take(indexer)
-   6203 if isinstance(key, Index):
-   6204     # GH 42790 - Preserve name from an Index
+File ~\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\core.py:211, in HierarchicalReconciliation._prepare_fit(self, Y_hat_nw, S_nw, Y_nw, tags, level, intervals_method, id_col, time_col, target_col)
+    209 Y_hat_diff = set(Y_hat_nw[id_col]) - set(S_nw[id_col])
+    210 if S_diff:
+--> 211     raise ValueError(
+    212         f"There are unique_ids in S_df that are not in Y_hat_df: {reprlib.repr(S_diff)}"
+    213     )
+    214 if Y_hat_diff:
+    215     raise ValueError(
+    216         f"There are unique_ids in Y_hat_df that are not in S_df: {reprlib.repr(Y_hat_diff)}"
+    217     )
 
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:6252, in Index._raise_if_missing(self, key, indexer, axis_name)
-   6249     raise KeyError(f"None of [{key}] are in the [{axis_name}]")
-   6251 not_found = list(ensure_index(key)[missing_mask.nonzero()[0]].unique())
--> 6252 raise KeyError(f"{not_found} not in index")
-
-KeyError: "['unique_id'] not in index"
+ValueError: There are unique_ids in S_df that are not in Y_hat_df: {'NHS/Operatio...Professionals', 'NHS/Operatio...nals/Sickness', 'NHS/SSL Corp...tists/Leavers', 'NHS/Somerset...ical Services', 'NHS/Somerset...ervices/Hires'}
