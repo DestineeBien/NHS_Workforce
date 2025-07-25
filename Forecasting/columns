@@ -10,6 +10,10 @@ C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hier
   level_cols = re.findall("[\d]+[.,\d]+|[\d]*[.][\d]+|[\d]+", pi_col)
 C:\Users\Destinee.HassanBien\AppData\Roaming\Python\Python312\site-packages\hierarchicalforecast\core.py:286: SyntaxWarning: invalid escape sequence '\m'
   """Hierarchical Reconciliation Method.
+
+Index(['unique_id', 'ds', 'Naive', 'Naive/BottomUp',
+       'Naive/MinTrace_method-ols', 'Naive/MinTrace_method-mint_shrink'],
+      dtype='object')
 ---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
 File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3805, in Index.get_loc(self, key)
