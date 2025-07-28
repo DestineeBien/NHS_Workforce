@@ -1,0 +1,17 @@
+Empty DataFrame
+Columns: [ds, observed, Naive, Naive/BottomUp, Naive/MinTrace_method-ols, Naive/MinTrace_method-mint_shrink]
+Index: []
+ds                                   datetime64[ns]
+observed                                    float64
+Naive                                       float64
+Naive/BottomUp                              float64
+Naive/MinTrace_method-ols                   float64
+Naive/MinTrace_method-mint_shrink           float64
+dtype: object
+ds                                   0
+observed                             0
+Naive                                0
+Naive/BottomUp                       0
+Naive/MinTrace_method-ols            0
+Naive/MinTrace_method-mint_shrink    0
+dtype: int64
