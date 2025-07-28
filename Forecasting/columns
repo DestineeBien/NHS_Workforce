@@ -1,8 +1,42 @@
-NHS_Leavers_Detail_New : Service group	Service	Department	Organisation	Employee Number	Assignment Number	Employee Name	Termination Date	FTE	Position Title	Staff Group	Grade 3	Leaving Reason	Gender	Ethnicity Group	Disability	Nationality	Age Band SFT	Recruitment Source	Length of Service (Years)	Length of Service (Months)	Destination On Leaving	NHS Organisation	Occupation Code	Role	Area Of Work	Assignment Category	Age	Pay Grade	Contract Hours	Email Address	Address Line 1	Address Line 2	Address Line 3	Town or City	County	Postal Code	Ethnic Origin	Religious Belief	Sexual Orientation	Assignment Status	Subjective Code	Full Time Salary	Actual Salary	Spinal Value	Employee Birth Date	Residency Status	Professional Registration	NI Number
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In[35], line 3
+      1 # Split unique_id for easier filtering in Dash
+      2 split_cols = all_results['unique_id'].str.split('/', expand=True)
+----> 3 split_cols.columns = ['org', 'service_group', 'staff_group', 'metric', 'extra']
+      4 for col in ['service_group', 'staff_group', 'metric']:
+      5     all_results[col] = split_cols[col]
 
-Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number	Assignment Number	Employee Name	Latest Start Date	FTE	Position Title	Staff Group	Recruitment Source	Occupation Code	Role	Area Of Work	Grade 3	Pay Grade	Disability	Ethnicity Group	Gender	Nationality	Employee Email Address	Professional Registration Num	NI Number	Actual Salary	Age	DOB
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py:6313, in NDFrame.__setattr__(self, name, value)
+   6311 try:
+   6312     object.__getattribute__(self, name)
+-> 6313     return object.__setattr__(self, name, value)
+   6314 except AttributeError:
+   6315     pass
 
-Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
+File properties.pyx:69, in pandas._libs.properties.AxisProperty.__set__()
 
-No data for uid=NHS/Medical Services/Adminstrative and Clerical/Leavers. Please choose from:
- ['NHS/Clinical Support and Cancer Services/Nursing and Midwifery Registered/Sickness', 'NHS/Neighbourhood Services/Medical and Dental/Leavers', 'NHS/Neighbourhood Services/Estates and Ancillary/Sickness', 'NHS/Operational Management', 'NHS/Neighbourhood Services/Add Prof Scientific and Technic/Sickness', 'NHS/Surgical Services/Estates and Ancillary/Sickness', 'NHS/Clinical Support and Cancer Services/Allied Health Professionals/Sickness', 'NHS/Operational Management/Administrative and Clerical/Hires', 'NHS/Medical Services/Nursing and Midwifery Registered/Sickness', 'NHS/Clinical Support and Cancer Services/Medical and Dental']
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py:814, in NDFrame._set_axis(self, axis, labels)
+    809 """
+    810 This is called from the cython code when we set the `index` attribute
+    811 directly, e.g. `series.index = [1, 2, 3]`.
+    812 """
+    813 labels = ensure_index(labels)
+--> 814 self._mgr.set_axis(axis, labels)
+    815 self._clear_item_cache()
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\managers.py:238, in BaseBlockManager.set_axis(self, axis, new_labels)
+    236 def set_axis(self, axis: AxisInt, new_labels: Index) -> None:
+    237     # Caller is responsible for ensuring we have an Index object.
+--> 238     self._validate_set_axis(axis, new_labels)
+    239     self.axes[axis] = new_labels
+
+File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\internals\base.py:98, in DataManager._validate_set_axis(self, axis, new_labels)
+     95     pass
+     97 elif new_len != old_len:
+---> 98     raise ValueError(
+     99         f"Length mismatch: Expected axis has {old_len} elements, new "
+    100         f"values have {new_len} elements"
+    101     )
+
+ValueError: Length mismatch: Expected axis has 4 elements, new values have 5 elements
