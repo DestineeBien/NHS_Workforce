@@ -4,55 +4,92 @@ Hires_Detail_New : Service group	Service	Department	Organisation	Employee Number
 
 Sickness_Percentage_New : Service Group	Service	Department	Organisation	Staff Group	Month	Abs (FTE)	Avail (FTE)	Short Term Absence FTE	Long Term Absence FTE
 
-Cell In[28], line 1
-    out_path = os.path.join(base_dir, f"nhs_obs_forecast_{uid.replace('\',
-                                                                      ^
-SyntaxError: unterminated string literal (detected at line 1)
----------------------------------------------------------------------------
-KeyError                                  Traceback (most recent call last)
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3805, in Index.get_loc(self, key)
-   3804 try:
--> 3805     return self._engine.get_loc(casted_key)
-   3806 except KeyError as err:
+import os
+import pandas as pd
+import numpy as np 
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-File index.pyx:167, in pandas._libs.index.IndexEngine.get_loc()
+from statsforecast import StatsForecast
+from statsforecast.models import Naive
+from hierarchicalforecast.core import HierarchicalReconciliation
+from hierarchicalforecast.evaluation import evaluate 
+from hierarchicalforecast.methods import BottomUp, MinTrace
+from hierarchicalforecast.utils import aggregate
 
-File index.pyx:196, in pandas._libs.index.IndexEngine.get_loc()
+## Data Load
+base_dir = r"C:\Users\Destinee.HassanBien\Documents\Desys Work"
+all_agg_file = os.path.join(base_dir, "combined_workforce_monthly_new.csv")
+all_agg = pd.read_csv(all_agg_file, parse_dates=["month"])
+all_agg.columns = all_agg.columns.str.lower().str.strip()
 
-File pandas\\_libs\\hashtable_class_helper.pxi:7081, in pandas._libs.hashtable.PyObjectHashTable.get_item()
+group_cols = ["service group", "staff group", "metric"]
+count = all_agg.groupby(group_cols).size()
+valid_groups = set(count[count >= 24].index)
+all_agg_hier = all_agg.set_index(group_cols)
+all_agg_hier = all_agg_hier.iloc[all_agg_hier.index.isin(valid_groups)].reset_index()
 
-File pandas\\_libs\\hashtable_class_helper.pxi:7089, in pandas._libs.hashtable.PyObjectHashTable.get_item()
+all_agg_hier['Total'] = 'NHS'
+spec = [
+    ['Total'],
+    ['Total', 'service group'],
+    ['Total', 'service group', 'staff group'],
+    ['Total', 'service group', 'staff group', 'metric'],
+]
+ys = all_agg_hier.rename(columns={
+    'month':'ds',
+    'count':'y',
+    'service group':'service group',
+    'staff group':'staff group',
+    'metric':'metric'
+})
 
-KeyError: 'Naive/MinTrance_method-mint_shrink'
+Y_df, S_df, tags = aggregate(ys, spec)
+Y_df = Y_df.sort_values(['unique_id', 'ds'])
 
-The above exception was the direct cause of the following exception:
+# Find last observed date
+observed_last = Y_df['ds'].max()
+# Target horizon: from (observed_last + 1 month) up to March 2027
+forecast_until = pd.Timestamp("2027-03-01") 
+n_months_forward = (forecast_until.year - observed_last.year) * 12 + (forecast_until.month - observed_last.month)
+horizon = max(n_months_forward, 12) 
 
-KeyError                                  Traceback (most recent call last)
-Cell In[20], line 6
-      4 plt.plot(merged['ds'], merged['Naive/BottomUp'], label='BottomUp', color='orange')
-      5 plt.plot(merged['ds'], merged['Naive/MinTrace_method-ols'], label='MinT-OLS', color='red')
-----> 6 plt.plot(merged['ds'], merged['Naive/MinTrance_method-mint_shrink'], label='MinT-shrink', color='green')
-      7 if split_date is not None:
-      8     plt.axvline(split_date, color='grey', ls='--', alpha=0.7, label='Forecast Start')
+sf = StatsForecast(models=[Naive()], freq="MS", n_jobs=-1)
+# Use ALL available data for most up to date forecast
+Y_hat_df = sf.forecast(h=horizon, df=Y_df, fitted=True)
+Y_fitted_df = sf.forecast_fitted_values()
 
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\frame.py:4102, in DataFrame.__getitem__(self, key)
-   4100 if self.columns.nlevels > 1:
-   4101     return self._getitem_multilevel(key)
--> 4102 indexer = self.columns.get_loc(key)
-   4103 if is_integer(indexer):
-   4104     indexer = [indexer]
+reconcilers = [BottomUp(), MinTrace(method="ols"), MinTrace("mint_shrink")]
+hrec = HierarchicalReconciliation(reconcilers=reconcilers)
+Y_rec_df = hrec.reconcile(
+    Y_hat_df=Y_hat_df,
+    Y_df=Y_fitted_df,
+    S=S_df,
+    tags=tags
+)
 
-File C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\indexes\base.py:3812, in Index.get_loc(self, key)
-   3807     if isinstance(casted_key, slice) or (
-   3808         isinstance(casted_key, abc.Iterable)
-   3809         and any(isinstance(x, slice) for x in casted_key)
-   3810     ):
-   3811         raise InvalidIndexError(key)
--> 3812     raise KeyError(key) from err
-   3813 except TypeError:
-   3814     # If we have a listlike key, _check_indexing_error will raise
-   3815     #  InvalidIndexError. Otherwise we fall through and re-raise
-   3816     #  the TypeError.
-   3817     self._check_indexing_error(key)
+uid = "NHS/Medical Services/Adminstrative and Clerical/Leavers"
 
-KeyError: 'Naive/MinTrance_method-mint_shrink'
+# Observed history 
+obs_df = Y_df[Y_df['unique_id'] == uid][['ds', 'y']].rename(columns={'y': 'observed'}).sort_values('ds')
+
+#Forecast for future 
+fc_cols = [
+    'Naive', 'Naive/BottomUp', 'Naive/MinTrace_method-ols', 'Naive/MinTrace_method-mint_shrink'
+]
+fc_df = Y_rec_df[Y_rec_df['unique_id'] == uid][['ds'] + fc_cols].sort_values('ds')
+
+merged = pd.merge(obs_df, fc_df, on='ds', how='outer').sort_values('ds')
+
+plt.figure(figsize=(12, 6))
+plt.plot(merged['ds'], merged['observed'], label='Observed', color='black', linewidth=2)
+plt.plot(merged['ds'], merged['Naive'], label='Naive (Base)', color='blue')
+plt.plot(merged['ds'], merged['Naive/MinTrace_method-ols'], label='MinT-OLS', color='red')
+plt.plot(merged['ds'], merged['Naive/MinTrace_method-mint_shrink'], label='MinT-shrink', color='green')
+
+plt.xlabel('Month')
+plt.ylabel('Workforce Count')
+plt.title(f"NHS Hierarchical Forecast: {uid}")
+plt.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
